@@ -11,13 +11,13 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const port = 9005;
+const port = 9006;
 
 app.get("/", (req, res) => {
-  res.redirect(301, '/edit/pizza');
+  res.redirect(301, '/pizza/list');
 });
 
-app.get(["/edit/pizza","/edit/pizza/:id"], async (req, res, next) => {
+app.get(["/pizza/list","/pizza/list/:id"], async (req, res, next) => {
   res.sendFile(path.join(`${__dirname}/../frontend/index.html`));
 });
 app.use('/public', express.static(`${__dirname}/../frontend/public`));

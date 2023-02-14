@@ -1,4 +1,5 @@
-let fetchedData;
+let pizzaData;
+let allergensData;
 let gridContainerEl;
 
 const getData = async () => {
@@ -8,7 +9,10 @@ const getData = async () => {
   image.src =
     "https://mir-s3-cdn-cf.behance.net/project_modules/max_632/04de2e31234507.564a1d23645bf.gif";
   const response = await fetch("/api/pizza/");
-  fetchedData = await response.json();
+  pizzaData = await response.json();
+  const responseAllergens = await fetch("/api/allergens/");
+  allergensData = await responseAllergens.json();
+
   image.style.display = "none";
   displayPizzaItems();
     } catch (error) {
@@ -28,13 +32,14 @@ const displayPizzaItems = () => {
     gridContainerEl.className = "grid-container";
     rootEl.appendChild(gridContainerEl);
 
-    fetchedData.types.forEach(pizza => {
+    pizzaData.forEach(pizza => {
+        let allergensToDisplay = pizza.allergens.map(elem => elem = allergensData[elem - 1].name)
         let cardEl = `
         <div class="card pizzaItemContainer" style="width: 16rem;">
         <img src="${pizza.img}" class="card-img-top" alt="..." style = "position: relative">
         <div class="card-body">
             <h5 class="card-title">${pizza.name}</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <p class="card-text">Allergens: ${allergensToDisplay.join(", ")}</p>
         </div>  
         <ul class="list-group list-group-flush">
             <li class="list-group-item">An item</li>

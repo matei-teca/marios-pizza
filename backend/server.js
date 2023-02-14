@@ -27,6 +27,12 @@ app.get("/api/pizza", async function(req, res, next){
   // setTimeout(()=>{
     res.send(JSON.stringify(fileData));
   // },2000)
+});
+
+app.get("/api/allergens", async (req, res) => {
+  const fileData = JSON.parse(await fileReaderAsync(filePath));
+  res.send(JSON.stringify(fileData.allergens));
+
 })
 
 app.listen(port, _ => console.log(`http://127.0.0.1:${port}`));

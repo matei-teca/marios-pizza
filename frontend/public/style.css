@@ -2,11 +2,19 @@
 
 body {
     background-color: brown;
-    
-}
-
-#root {
     display: flex;
     justify-content: center;
     align-items: center;
+
+
+}
+
+#root {
+    background-color:burlywood;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    width: 60vw;
 }

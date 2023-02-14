@@ -5,49 +5,49 @@
         "name": "Rustica",
         "ingredients": [ "Cream Sauce", "100% Mozzarella", "Telemea Cheese", "Bacon", "Onions", "Fresh Tomato" ],
         "price": 41,
-        "allergens": [1,3,9]
+        "allergens": [1,3,5,6,7,9,10,11,12]
     },
     {
         "id": 2,
         "name": "Carnivora",
         "ingredients": [ "Tomato Sauce", "100% Mozzarella", "Sausage", "Spicy Beef", "Pepperoni", "Ham" ],
         "price": 47,
-        "allergens": [1,3,9]
+        "allergens": [1,3,5,6,7,9,10,12]
     },
     {
         "id": 3,
         "name": "Pepperoni",
         "ingredients": [ "Tomato Sauce", "Extra 100% Mozzarella", "Extra Pepperoni"],
         "price": 43,
-        "allergens": [1,3,9]
+        "allergens": [1,3,5,6,7,9,10,11,12]
     },
     {
         "id": 4,
         "name": "Vegetarian",
         "ingredients": [ "Tomato Sauce", "100% Mozzarella", "Fresh Tomato", "Green Peppers", "Black Olives", "Onions", "Mushrooms", "Sweet Corn"],
         "price": 39,
-        "allergens": [1,3,9]
+        "allergens": [1,7]
     },
     {
         "id": 5,
         "name": "Margherita",
         "ingredients": [ "Sos de Pizza", "100% Mozzarella"],
         "price": 29,
-        "allergens": [1,3,9]
+        "allergens": [1,7]
     },
     {
         "id": 6,
         "name": "Carbonara",
         "ingredients": ["Cream Sauce", "Blue Cheese", "100% Mozzarella", "Parmezan", "Bacon"],
         "price": 48,
-        "allergens": [1,3,9]
+        "allergens": [1,6,7]
     },
     {
         "id": 7,
-        "name": "Toscana",
-        "ingredients": [ "Tomato Sauce", "Extra 100% Mozzarella", "Extra Pepperoni"],
+        "name": "Quatro Stagione",
+        "ingredients": [ "Tomato Sauce", "Ham", "Chorizo","Mushrooms","pepper"],
         "price": 38,
-        "allergens": [1,3,9]
+        "allergens": [1,6,7]
     }
    ],
 
@@ -55,6 +55,50 @@
     {
         "id": 1,
         "name": "gluten"
-    }   
+    },
+    {
+        "id": 2,
+        "name": "crustaceans"
+    },
+    {
+        "id": 3,
+        "name": "eggs"
+    },
+    {
+        "id": 4,
+        "name": "fish"
+    },
+    {
+        "id": 5,
+        "name": "peanuts"
+    },
+    {
+        "id": 6,
+        "name": "soy"
+    },
+    {
+        "id": 7,
+        "name": "lactose"
+    },
+    {
+        "id": 8,
+        "name": "nuts"
+    },
+    {
+        "id": 9,
+        "name": "celery"
+    },
+    {
+        "id": 10,
+        "name": "mustard"
+    },
+    {
+        "id": 11,
+        "name": "sesame"
+    },
+    {
+        "id": 12,
+        "name": "sulphur dioxide"
+    }
    ]
 }

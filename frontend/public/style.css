@@ -1,0 +1,12 @@
+
+
+body {
+    background-color: brown;
+    
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

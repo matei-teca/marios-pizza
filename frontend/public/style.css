@@ -10,30 +10,20 @@ body {
 }
 
 #root {
-    background-color:burlywood;
+    /* background-color:burlywood; */
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
     height: 90vh;
     width: 90vw;
 }
-
-/* .pizzaItemContainer{
-    background-color: orange;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 200px;
-    height: 200px;
-} */
-
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto auto;
     background-color: orange;
+    align-items: center;
+    justify-content: space-around;
     padding: 10px;
-    height: 90%;
+    height: 160vh;
     width: 90%;
   }
 
@@ -43,6 +33,9 @@ body {
     padding: 20px;
     font-size: 30px;
     text-align: center;
+    width: 200px;
+    height: 470px;
+    /* margin-bottom: 50px; */
   }
 
   img{

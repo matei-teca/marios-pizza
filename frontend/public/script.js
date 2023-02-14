@@ -1,7 +1,7 @@
 let pizzaData;
 let allergensData;
 let gridContainerEl, navBarDiv, rootEl, buttonSearch, filterdiv;
-let checkBox;
+let checkBox, toBeListed;
 
 const createEl = (
   type,
@@ -31,9 +31,10 @@ const getData = async () => {
     pizzaData = await response.json();
     const responseAllergens = await fetch("/api/allergens/");
     allergensData = await responseAllergens.json();
-
+    toBeListed = new Array(pizzaData.length).fill(true);
     image.style.display = "none";
     displayNavBar();
+    gridContainerEl = createEl("div", rootEl, "class", "grid-container");
     displayPizzaItems();
   } catch (error) {
     if (error instanceof SyntaxError) {
@@ -55,11 +56,8 @@ const displayNavBar = () => {
   for (let alergen of allergensData) {
     let label = createEl("label", checkBox);
     let row = createEl("input", label, "type", "checkbox");
-    label.append(document.createTextNode(alergen.name));
-    // label.insertAdjacentHTML(
-    //   "beforeend",
-    //   `<input type='checkbox'> ${alergen.name}</input>`
-    // );
+    row.value = alergen.name;
+    label.innerHTML += alergen.name;
   }
   buttonSearch.addEventListener("click", listAlergens);
   let applyFilter = createEl("button", checkBox, "id", "applyFilter");
@@ -75,11 +73,31 @@ const listAlergens = () => {
   }
 };
 
-const filterByAlergens = () => {};
+const filterByAlergens = () => {
+  let checkedBoxes = document.querySelectorAll("input:checked");
+  let pharagraphs = document.querySelectorAll("div>p");
+  pharagraphs.forEach((p, i) => {
+    let bool = false;
+    for (allergen of checkedBoxes) {
+      console.log(allergen.value);
+      if (p.innerText.includes(allergen.value)) {
+        bool = true;
+        break;
+      }
+    }
+    if (bool) {
+      toBeListed[i] = false;
+      // p.parentElement.parentElement.remove();
+    }
+  });
+  displayPizzaItems();
+  toBeListed.fill(true);
+};
 
 const displayPizzaItems = () => {
-  gridContainerEl = createEl("div", rootEl, "class", "grid-container");
-  pizzaData.forEach((pizza) => {
+  // console.log(toBeListed);
+  gridContainerEl.innerHTML = "";
+  pizzaData.forEach((pizza, i) => {
     let allergensToDisplay = pizza.allergens.map(
       (elem) => (elem = allergensData[elem - 1].name)
     );
@@ -101,8 +119,10 @@ const displayPizzaItems = () => {
     <a href="#" class="card-link">Card link</a>
     </div>
     </div>`;
-
-    gridContainerEl.insertAdjacentHTML("beforeend", cardEl);
+    if (toBeListed[i]) {
+      console.log(i);
+      gridContainerEl.insertAdjacentHTML("beforeend", cardEl);
+    }
   });
 };
 

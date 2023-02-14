@@ -44,3 +44,9 @@ body {
     font-size: 30px;
     text-align: center;
   }
+
+  img{
+    position: fixed;
+    width: 20%;
+    height: 30%;
+  }

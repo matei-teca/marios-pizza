@@ -51,10 +51,18 @@
     {
         "id": 7,
         "name": "Quatro Stagione",
-        "ingredients": [ "Tomato Sauce", "Ham", "Chorizo","Mushrooms","pepper"],
+        "ingredients": [ "Tomato Sauce", "100% Mozzarella", "Ham", "Chorizo","Mushrooms","pepper"],
         "price": 38,
         "allergens": [1,6,7],
         "img":"//www.dominos-pizza.ro/gallery/fmobile/1938medium.png"
+    },
+    {
+        "id": 8,
+        "name": "Mexicana",
+        "ingredients": [ "Tomato Sauce", "100% Mozzarella", "Bacon", "Chorizo", "Ham", "Jalapeno"],
+        "price": 45,
+        "allergens": [1,6,7],
+        "img":"//www.dominos-pizza.ro/gallery/fmobile/1644medium.png"
     }
    ],
 

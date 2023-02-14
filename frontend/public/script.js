@@ -25,10 +25,16 @@ const displayData = () => {
 
     const rootEl = document.getElementById("root");
 
+    const gridContainerEl = document.createElement("div");
+    gridContainerEl.className = "grid-container";
+    rootEl.appendChild(gridContainerEl);
+
     fetchedData.types.forEach(element => {
         const divEl = document.createElement("div");
         divEl.innerHTML = element.name;
-        rootEl.appendChild(divEl);
+        divEl.id = `${element.name}`;
+        divEl.className = "pizzaItemContainer";
+        gridContainerEl.appendChild(divEl);
     });
 
 }

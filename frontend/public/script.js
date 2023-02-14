@@ -30,7 +30,7 @@ const displayPizzaItems = () => {
 
     fetchedData.types.forEach(pizza => {
         let cardEl = `
-        <div class="card pizzaItemContainer" style="width: 18rem;">
+        <div class="card pizzaItemContainer" style="width: 16rem;">
         <img src="${pizza.img}" class="card-img-top" alt="..." style = "position: relative">
         <div class="card-body">
             <h5 class="card-title">${pizza.name}</h5>

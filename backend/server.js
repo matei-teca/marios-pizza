@@ -24,9 +24,9 @@ app.use('/public', express.static(`${__dirname}/../frontend/public`));
 
 app.get("/api/pizza", async function(req, res, next){
   const fileData = JSON.parse(await fileReaderAsync(filePath));
-  setTimeout(()=>{
+  // setTimeout(()=>{
     res.send(JSON.stringify(fileData));
-  },2000)
+  // },2000)
 })
 
 app.listen(port, _ => console.log(`http://127.0.0.1:${port}`));

@@ -25,6 +25,7 @@ body {
     padding: 10px;
     height: 160vh;
     width: 90%;
+    margin-top: 100px;
   }
 
 .pizzaItemContainer {
@@ -43,3 +44,26 @@ body {
     width: 70%
 
   }
+
+#navBarDiv{
+  position: absolute;
+width:100vw;
+height: 13vh;
+top:0;
+left: 0
+}
+
+#inputSearch{
+  position: absolute;
+  text-align: left;
+  width: 20%;
+  justify-content: center;
+  align-items: center;
+  top:15%;
+  height: 10%;
+  right: 5%;
+  padding: 14px;
+  border: 1px solid #ccc; 
+}
+
+

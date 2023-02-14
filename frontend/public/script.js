@@ -1,6 +1,7 @@
 let pizzaData;
 let allergensData;
-let gridContainerEl, navBarDiv, rootEl;
+let gridContainerEl, navBarDiv, rootEl, buttonSearch, filterdiv;
+let checkBox;
 
 const createEl = (
   type,
@@ -46,8 +47,35 @@ const getData = async () => {
 const displayNavBar = () => {
   rootEl = document.getElementById("root");
   navBarDiv = createEl("div", rootEl, "id", "navBarDiv");
-  inputSearch = createEl("input", navBarDiv, "id", "inputSearch");
+  filterdiv = createEl("div", navBarDiv, "id", "filterdiv");
+  buttonSearch = createEl("button", filterdiv, "id", "buttonSearch");
+  buttonSearch.innerText = "Filter";
+  checkBox = createEl("div", filterdiv, "id", "checkBox");
+  checkBox.hidden = "hidden";
+  for (let alergen of allergensData) {
+    let label = createEl("label", checkBox);
+    let row = createEl("input", label, "type", "checkbox");
+    label.append(document.createTextNode(alergen.name));
+    // label.insertAdjacentHTML(
+    //   "beforeend",
+    //   `<input type='checkbox'> ${alergen.name}</input>`
+    // );
+  }
+  buttonSearch.addEventListener("click", listAlergens);
+  let applyFilter = createEl("button", checkBox, "id", "applyFilter");
+  applyFilter.innerText = "Apply filter";
+  applyFilter.addEventListener("click", filterByAlergens);
 };
+
+const listAlergens = () => {
+  if (checkBox.hidden === true) {
+    checkBox.hidden = "";
+  } else {
+    checkBox.hidden = "hidden";
+  }
+};
+
+const filterByAlergens = () => {};
 
 const displayPizzaItems = () => {
   gridContainerEl = createEl("div", rootEl, "class", "grid-container");

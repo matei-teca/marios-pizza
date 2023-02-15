@@ -1,6 +1,5 @@
 const express = require("express");
 const fs = require("fs");
-const dataRoute = "./pizzas.json";
 const path = require("path");
 const fileReaderAsync = require("./fileReader");
 const fileWriterAsync = require("./fileWriter");
@@ -33,5 +32,14 @@ app.get("/api/allergens", async (req, res) => {
   const fileData = JSON.parse(await fileReaderAsync(filePath));
   res.send(JSON.stringify(fileData.allergens));
 });
+
+app.post("/api/order", async (req,res) => {
+  const object = req.body
+  const fileData = JSON.parse(await fileReaderAsync(`${__dirname}/orders.json`))
+  object.id = fileData.orders.length + 1
+  fileData.orders.push(object)
+  fileWriterAsync(`${__dirname}/orders.json`, JSON.stringify(fileData, null, 4))
+  res.send("Order was registered successful!")
+})
 
 app.listen(port, (_) => console.log(`http://127.0.0.1:${port}`));

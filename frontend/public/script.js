@@ -1,17 +1,18 @@
 let pizzaData;
 let allergensData;
-let gridContainerEl, navBarDiv, rootEl, buttonSearch, filterdiv, cartButton;
+let gridContainerEl,
+  navBarDiv,
+  rootEl,
+  buttonSearch,
+  filterdiv,
+  cartButton,
+  cartImg;
 let checkBox, toBeListed;
+let itemsInCart = 0;
 let orderFormat = {
-  id: 1,
+  id: 0,
   pizzas: [],
-  date: {
-    year: 2022,
-    month: 6,
-    day: 7,
-    hour: 18,
-    minute: 47,
-  },
+  date: {},
   customer: {
     name: "John Doe",
     email: "jd@example.com",
@@ -68,7 +69,14 @@ const displayNavBar = () => {
   rootEl = document.getElementById("root");
   navBarDiv = createEl("div", rootEl, "id", "navBarDiv");
   filterdiv = createEl("div", navBarDiv, "id", "filterdiv");
-  buttonSearch = createEl("button", filterdiv, "id", "buttonSearch");
+  buttonSearch = createEl(
+    "button",
+    filterdiv,
+    "id",
+    "buttonSearch",
+    "class",
+    "btn btn-success"
+  );
   buttonSearch.innerText = "Filter";
   checkBox = createEl("div", filterdiv, "id", "checkBox");
   checkBox.hidden = "hidden";
@@ -80,9 +88,34 @@ const displayNavBar = () => {
   }
   buttonSearch.addEventListener("click", listAlergens);
 
-  let applyFilter = createEl("button", checkBox, "id", "applyFilter");
+  let applyFilter = createEl(
+    "button",
+    checkBox,
+    "id",
+    "applyFilter",
+    "class",
+    "btn btn-success"
+  );
   applyFilter.innerText = "Apply filter";
   applyFilter.addEventListener("click", filterByAlergens);
+
+  cartButton = createEl(
+    "button",
+    navBarDiv,
+    "id",
+    "cartButton",
+    "type",
+    "button",
+    "class",
+    "btn btn-success"
+  );
+  cartButton.innerText = `Cart(${itemsInCart})`;
+
+  let popupContainer = document.querySelector("#popupContainer");
+
+  cartButton.addEventListener("click", () => {
+    popupContainer.style.display = "flex";
+  });
 };
 
 const listAlergens = () => {
@@ -120,23 +153,12 @@ const displayPizzaItems = () => {
       (elem) => (elem = allergensData[elem - 1].name)
     );
     let cardEl = `
-    <div id="${pizza.id}" class="card pizzaItemContainer">
-    <img src="${
-      pizza.img
-    }" class="card-img-top" alt="..." style = "position: relative">
-    <div class="card-body">
-    <h2 class="card-title">${pizza.name}</h2>
-    <p class="card-text">Allergens: ${allergensToDisplay.join(", ")}</p>
-    </div>  
-    <ul class="list-group list-group-flush listCSS">
-      <li class="list-group-item">An item</li>
-      <li class="list-group-item">A second item</li>
-      <li class="list-group-item">A third item</li>
-    </ul>
-        <div class="card-body">
-
-        </div>
-
+    <div id="${pizza.id}" class="pizzaItemContainer">
+    <img src="${pizza.img}" alt="..." style = "position: relative">
+    <div class="text-center">
+    <h2>${pizza.name}</h2>
+    <p><strong>Allergens</strong>: ${allergensToDisplay.join(", ")}</p>
+    </div>
         <div id="pqContainer">
           <div id="price">${pizza.price}RON</div>
           <div id="quantityCont">
@@ -178,7 +200,6 @@ const completeOrderDetails = () => {
       modifyQuantity(1, event);
     });
   });
-
 };
 
 const addPizzaToOrder = (event) => {
@@ -189,6 +210,7 @@ const addPizzaToOrder = (event) => {
     amount: amount,
   };
   orderFormat.pizzas.push(pizzaOrder);
+  cartButton.innerText = `Cart(${++itemsInCart})`;
 };
 
 const modifyQuantity = (iterator, event) => {
@@ -200,7 +222,7 @@ const formStructure = () => {
   return `
   <div id = "popupContainer">
     <div id = "formContainer">
-      <form>
+      <form id="formular">
         <div id="title" class="formItem">
           Order Details
         </div>
@@ -220,15 +242,59 @@ const formStructure = () => {
           <label for="street">Street:</label>
           <input type="text" id="street" class="input" name="street">
         </div>
-        <button id="submitBttn">Complete Order</button>
+        <button id="submitBttn" class="btn btn-success" type="submit" form="formular">Complete Order</button>
       </form>
     </div>
   </div>
-  `
-}
+  `;
+};
 
 const displayForm = () => {
-  document.body.insertAdjacentHTML("beforeend", formStructure())
+  document.body.insertAdjacentHTML("beforeend", formStructure());
+  getFormDetails();
+};
+
+const getFormDetails = () => {
+  const formular = document.querySelector("#formular");
+  formular.addEventListener("submit", (event) => {
+    event.preventDefault()
+    let data = new FormData(formular);
+    let object = {};
+    data.forEach((value, key) => {
+      object[key] = value;
+    });
+
+    orderFormat.customer.name = object.name;
+    orderFormat.customer.email = object.email;
+    orderFormat.customer.address.city = object.city;
+    orderFormat.customer.address.street = object.street;
+
+    popupContainer.style.display = "none";
+
+    addDateToOrder()
+
+    postOrderReq()
+  });
+};
+
+const addDateToOrder = () => {
+  let date = new Date()
+  orderFormat.date = {
+    year: date.getFullYear(),
+    month: date.getMonth()+1,
+    day: date.getDate(),
+    hour: date.getHours(),
+    minute: date.getMinutes()
+  }
+}
+
+const postOrderReq = () => {
+  fetch("/api/order", {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify(orderFormat)
+  })
+  
 }
 
 const loadEvent = (_) => {

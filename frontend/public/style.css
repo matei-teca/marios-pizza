@@ -1,5 +1,5 @@
 body {
-  background-color: brown;
+  background-color: rgb(0, 0, 0) !important;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,7 +11,7 @@ img {
 }
 
 #root {
-  background-color: burlywood;
+  /* background-color: burlywood; */
   display: flex;
   justify-content: center;
   height: 90vh;
@@ -20,7 +20,7 @@ img {
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto auto;
-  background-color: orange;
+  background-color: rgba(29, 8, 17, 255);
   align-items: center;
   justify-content: space-around;
   padding: 10px;
@@ -31,8 +31,9 @@ img {
 
 .pizzaItemContainer {
   position: relative;
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.8);
+  background-color: rgba(52, 33, 41, 1);
+  border: 1px solid rgba(129, 127, 127, 0.8);
+  color: aliceblue;
   height: 90%;
   width: 91%;
   display: flex;
@@ -40,18 +41,22 @@ img {
   flex-direction: column;
 }
 
+.pizzaItemContainer:hover {
+  background-color: rgba(158, 45, 93, 255);
+}
+
 .orderBttn {
-  background-color: green;
+  background-color: rgb(212, 106, 151);
   position: absolute;
-  width: 30%;
+  width: 50%;
   height: 7%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
+  border-radius: 30px;
   top: 90%;
-  left: 35%;
-  cursor: pointer
+  left: 25%;
+  cursor: pointer;
 }
 
 #quantityCont {
@@ -63,7 +68,7 @@ img {
 
 .quantityCounter {
   margin-inline: 5px;
-  font-size: 20px
+  font-size: 20px;
 }
 
 .quantityMinusBttn,
@@ -115,9 +120,8 @@ img {
 }
 
 label {
-  display: block !important; 
+  display: block !important;
 }
-
 
 .listCSS {
   width: 90%;
@@ -142,11 +146,12 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
-  display: none
+  display: none;
 }
 
-#formContainer{
-  background-color: white;
+#formContainer {
+  background-color: rgb(0, 0, 0);
+  color: aliceblue;
   width: 20%;
   height: 70%;
   display: flex;
@@ -161,18 +166,18 @@ label {
   /* font-size: 20px; */
 }
 
-#title{
+#title {
   font-size: 35px;
   text-align: center;
 }
 
-.input{
+.input {
   width: 100%;
-  padding: 3%
+  padding: 3%;
 }
 
-#submitBttn{
-  background-color: green;
+#submitBttn {
+  background-color: rgb(212, 106, 151);
   position: absolute;
   width: 50%;
   height: 7%;
@@ -189,5 +194,5 @@ label {
   display: flex;
   position: absolute;
   right: 5%;
-  top: 15%
+  top: 15%;
 }

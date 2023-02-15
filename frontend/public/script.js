@@ -84,6 +84,7 @@ const displayNavBar = () => {
     let label = createEl("label", checkBox);
     let row = createEl("input", label, "type", "checkbox");
     row.value = alergen.name;
+    row.id = alergen.id;
     label.innerHTML += alergen.name;
   }
   buttonSearch.addEventListener("click", listAlergens);
@@ -128,18 +129,18 @@ const listAlergens = () => {
 
 const filterByAlergens = () => {
   let checkedBoxes = document.querySelectorAll("input:checked");
-  let pharagraphs = document.querySelectorAll("div>p");
-  pharagraphs.forEach((p, i) => {
+  pizzaData.forEach((pizza, i) => {
     let bool = false;
+    console.log(pizza.allergens);
     for (allergen of checkedBoxes) {
-      if (p.innerText.includes(allergen.value)) {
+      console.log(allergen.id);
+      if (pizza.allergens.includes(allergen.id * 1)) {
         bool = true;
         break;
       }
     }
     if (bool) {
       toBeListed[i] = false;
-      // p.parentElement.parentElement.remove();
     }
   });
   displayPizzaItems();
@@ -257,13 +258,12 @@ const displayForm = () => {
 const getFormDetails = () => {
   const formular = document.querySelector("#formular");
   formular.addEventListener("submit", (event) => {
-    event.preventDefault()
+    event.preventDefault();
     let data = new FormData(formular);
     let object = {};
     data.forEach((value, key) => {
       object[key] = value;
     });
-
     orderFormat.customer.name = object.name;
     orderFormat.customer.email = object.email;
     orderFormat.customer.address.city = object.city;
@@ -271,31 +271,30 @@ const getFormDetails = () => {
 
     popupContainer.style.display = "none";
 
-    addDateToOrder()
+    addDateToOrder();
 
-    postOrderReq()
+    postOrderReq();
   });
 };
 
 const addDateToOrder = () => {
-  let date = new Date()
+  let date = new Date();
   orderFormat.date = {
     year: date.getFullYear(),
-    month: date.getMonth()+1,
+    month: date.getMonth() + 1,
     day: date.getDate(),
     hour: date.getHours(),
-    minute: date.getMinutes()
-  }
-}
+    minute: date.getMinutes(),
+  };
+};
 
 const postOrderReq = () => {
   fetch("/api/order", {
     method: "POST",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify(orderFormat)
-  })
-  
-}
+    body: JSON.stringify(orderFormat),
+  });
+};
 
 const loadEvent = (_) => {
   getData();

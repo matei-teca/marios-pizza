@@ -99,7 +99,6 @@ const filterByAlergens = () => {
   pharagraphs.forEach((p, i) => {
     let bool = false;
     for (allergen of checkedBoxes) {
-      console.log(allergen.value);
       if (p.innerText.includes(allergen.value)) {
         bool = true;
         break;
@@ -115,7 +114,6 @@ const filterByAlergens = () => {
 };
 
 const displayPizzaItems = () => {
-  // console.log(toBeListed);
   gridContainerEl.innerHTML = "";
   pizzaData.forEach((pizza, i) => {
     let allergensToDisplay = pizza.allergens.map(

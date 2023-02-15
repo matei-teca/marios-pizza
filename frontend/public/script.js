@@ -102,12 +102,12 @@ const displayPizzaItems = () => {
       (elem) => (elem = allergensData[elem - 1].name)
     );
     let cardEl = `
-    <div id="${pizza.id}" class="card pizzaItemContainer" style="width: 12rem;">
+    <div id="${pizza.id}" class="card pizzaItemContainer">
     <img src="${
       pizza.img
     }" class="card-img-top" alt="..." style = "position: relative">
     <div class="card-body">
-    <h5 class="card-title">${pizza.name}</h5>
+    <h2 class="card-title">${pizza.name}</h2>
     <p class="card-text">Allergens: ${allergensToDisplay.join(", ")}</p>
     </div>  
     <ul class="list-group list-group-flush listCSS">

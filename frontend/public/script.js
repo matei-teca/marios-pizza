@@ -102,7 +102,7 @@ const displayPizzaItems = () => {
       (elem) => (elem = allergensData[elem - 1].name)
     );
     let cardEl = `
-    <div id="${pizza.id}" class="card pizzaItemContainer" style="width: 18rem;">
+    <div id="${pizza.id}" class="card pizzaItemContainer" style="width: 12rem;">
     <img src="${
       pizza.img
     }" class="card-img-top" alt="..." style = "position: relative">
@@ -110,14 +110,25 @@ const displayPizzaItems = () => {
     <h5 class="card-title">${pizza.name}</h5>
     <p class="card-text">Allergens: ${allergensToDisplay.join(", ")}</p>
     </div>  
-    <ul class="list-group list-group-flush">
+    <ul class="list-group list-group-flush listCSS">
     <li class="list-group-item">An item</li>
     <li class="list-group-item">A second item</li>
     <li class="list-group-item">A third item</li>
     </ul>
     <div class="card-body">
-    <a href="#" class="card-link">Card link</a>
+
+        </div>
+
+        <div id="pqContainer">
+          <div id="price">40RON</div>
+          <div id="quantityCont">
+    <div id="quantityLeftBttn">-</div>
+            <div id="quantityNbr">1</div>
+            <div id="quantityRightBttn">+</div>
+          </div>
     </div>
+
+        <div id="orderBttn">Order</div>
     </div>`;
     if (toBeListed[i]) {
       console.log(i);

@@ -61,6 +61,10 @@ img {
   left: 25%;
   cursor: pointer;
 }
+.orderBttn:hover {
+  background-color: rgb(219, 41, 115);
+
+}
 
 #quantityCont {
   display: flex;

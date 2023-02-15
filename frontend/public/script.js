@@ -207,11 +207,20 @@ const addPizzaToOrder = (event) => {
   let parent = event.target.parentElement;
   let amount = parent.querySelector(".quantityCounter").innerText;
   let pizzaOrder = {
-    id: parent.id,
-    amount: amount,
+    id: parent.id * 1,
+    amount: amount * 1,
   };
-  orderFormat.pizzas.push(pizzaOrder);
-  cartButton.innerText = `Cart(${++itemsInCart})`;
+  let bool = true;
+  for (let pizza of orderFormat.pizzas) {
+    if (pizza.id === pizzaOrder.id) {
+      pizza.amount += pizzaOrder.amount;
+      bool = false;
+    }
+  }
+  if (bool) {
+    orderFormat.pizzas.push(pizzaOrder);
+    cartButton.innerText = `Cart(${++itemsInCart})`;
+  }
 };
 
 const modifyQuantity = (iterator, event) => {

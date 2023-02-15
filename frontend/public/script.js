@@ -246,56 +246,6 @@ const formStructure = () => {
         <button id="submitBttn" class="btn btn-success" type="submit" form="formular">Complete Order</button>
       </form>
     </div>
-        <div class="modal-dialog" id = "orderDetailsContainer">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Modal Heading</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        Modal body..
-        <div class="modal-body text-start text-black p-4">
-        <h5 class="modal-title text-uppercase mb-5" id="exampleModalLabel">Johnatan Miller</h5>
-        <h4 class="mb-5" style="color: #35558a;">Thanks for your order</h4>
-        <p class="mb-0" style="color: #35558a;">Payment summary</p>
-        <hr class="mt-2 mb-4"
-          style="height: 0; background-color: transparent; opacity: .75; border-top: 2px dashed #9e9e9e;">
-
-        <div class="d-flex justify-content-between">
-          <p class="fw-bold mb-0">Ether Chair(Qty:1)</p>
-          <p class="text-muted mb-0">$1750.00</p>
-        </div>
-
-        <div class="d-flex justify-content-between">
-          <p class="small mb-0">Shipping</p>
-          <p class="small mb-0">$175.00</p>
-        </div>
-
-        <div class="d-flex justify-content-between pb-1">
-          <p class="small">Tax</p>
-          <p class="small">$200.00</p>
-        </div>
-
-        <div class="d-flex justify-content-between">
-          <p class="fw-bold">Total</p>
-          <p class="fw-bold" style="color: #35558a;">$2125.00</p>
-        </div>
-
-      </div>
-
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-      </div>
-
-    </div>
-  </div>
 
   </div>
   `;
@@ -304,7 +254,68 @@ const formStructure = () => {
 const displayForm = () => {
   document.body.insertAdjacentHTML("beforeend", formStructure());
   getFormDetails();
+  displayOrderDetails();
 };
+
+const displayOrderDetails = () => {
+  const popupContainerEl = document.getElementById("popupContainer");
+  popupContainerEl.insertAdjacentHTML("beforeend", orderDetialsStructure());
+};
+
+
+const orderDetialsStructure = () => {
+  return `<div class="modal-dialog" id = "orderDetailsContainer">
+  <div class="modal-content">
+
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h4 class="modal-title">Modal Heading</h4>
+      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+
+    <!-- Modal body -->
+    <div class="modal-body">
+      Modal body..
+      <div class="modal-body text-start text-black p-4">
+      <h5 class="modal-title text-uppercase mb-5" id="exampleModalLabel">Johnatan Miller</h5>
+      <h4 class="mb-5" style="color: #35558a;">Thanks for your order</h4>
+      <p class="mb-0" style="color: #35558a;">Payment summary</p>
+      <hr class="mt-2 mb-4"
+        style="height: 0; background-color: transparent; opacity: .75; border-top: 2px dashed #9e9e9e;">
+
+      <div class="d-flex justify-content-between">
+        <p class="fw-bold mb-0">Ether Chair(Qty:1)</p>
+        <p class="text-muted mb-0">$1750.00</p>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <p class="small mb-0">Shipping</p>
+        <p class="small mb-0">$175.00</p>
+      </div>
+
+      <div class="d-flex justify-content-between pb-1">
+        <p class="small">Tax</p>
+        <p class="small">$200.00</p>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <p class="fw-bold">Total</p>
+        <p class="fw-bold" style="color: #35558a;">$2125.00</p>
+      </div>
+
+    </div>
+
+    </div>
+
+    <!-- Modal footer -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+    </div>
+
+  </div>
+</div>
+`
+}
 
 const getFormDetails = () => {
   const formular = document.querySelector("#formular");

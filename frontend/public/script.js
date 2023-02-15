@@ -202,30 +202,30 @@ const modifyQuantity = (iterator, event) => {
 const formStructure = () => {
   return `
   <div id = "popupContainer">
-  <div id = "formContainer">
-  <form>
-    <div id="title" class="formItem">
-      Order Details
+    <div id = "formContainer">
+      <form>
+        <div id="title" class="formItem">
+          Order Details
+        </div>
+        <div class="formItem">
+          <label for="name">Name:</label>
+          <input type="text" id="name" class="input" name="name">
+        </div>
+        <div class="formItem">
+          <label for="email">Email:</label>
+          <input type="text" id="email" class="input" name="email">
+        </div>
+        <div class="formItem">
+          <label for="city">City:</label>
+          <input type="text" id="city" class="input" name="city">
+        </div>
+        <div class="formItem">
+          <label for="street">Street:</label>
+          <input type="text" id="street" class="input" name="street">
+        </div>
+        <button id="submitBttn">Complete Order</button>
+      </form>
     </div>
-    <div class="formItem">
-    <label for="name">Name:</label>
-    <input type="text" id="name" class="input" name="name">
-    </div>
-    <div class="formItem">
-    <label for="email">Email:</label>
-    <input type="text" id="email" class="input" name="email">
-    </div>
-    <div class="formItem">
-    <label for="city">City:</label>
-    <input type="text" id="city" class="input" name="city">
-    </div>
-    <div class="formItem">
-    <label for="street">Street:</label>
-    <input type="text" id="street" class="input" name="street">
-    </div>
-    <button id="submitBttn">Complete Order</button>
-  </form>
-  </div>
   </div>
   `
 }

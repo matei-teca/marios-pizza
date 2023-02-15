@@ -6,7 +6,8 @@ let gridContainerEl,
   buttonSearch,
   filterdiv,
   cartButton,
-  cartImg;
+  cartImg,
+  regex = /[1234567890-=!@#$%^&*()_+;'.\/,\\{}":??><]+/;
 let checkBox, toBeListed;
 let itemsInCart = 0;
 let orderFormat = {
@@ -252,6 +253,7 @@ const formStructure = () => {
           <label for="street">Street:</label>
           <input type="text" id="street" class="input" name="street">
         </div>
+        <div id="errorMessage"></div>
         <button id="submitBttn" class="btn btn-success" type="submit" form="formular">Complete Order</button>
       </form>
     </div>
@@ -266,6 +268,7 @@ const displayForm = () => {
 
 const getFormDetails = () => {
   const formular = document.querySelector("#formular");
+  const errorDiv = document.querySelector("#errorMessage");
   formular.addEventListener("submit", (event) => {
     event.preventDefault();
     let data = new FormData(formular);
@@ -273,16 +276,19 @@ const getFormDetails = () => {
     data.forEach((value, key) => {
       object[key] = value;
     });
-    orderFormat.customer.name = object.name;
-    orderFormat.customer.email = object.email;
-    orderFormat.customer.address.city = object.city;
-    orderFormat.customer.address.street = object.street;
+    if (regex.test(object.name)) {
+      errorDiv.innerText = "Invalid character in name";
+      console.log("Invalid character in name");
+    } else {
+      orderFormat.customer.name = object.name;
+      orderFormat.customer.email = object.email;
+      orderFormat.customer.address.city = object.city;
+      orderFormat.customer.address.street = object.street;
 
-    popupContainer.style.display = "none";
-
-    addDateToOrder();
-
-    postOrderReq();
+      popupContainer.style.display = "none";
+      addDateToOrder();
+      postOrderReq();
+    }
   });
 };
 

@@ -118,6 +118,7 @@ img {
   top: 15%;
   height: 100%;
   left: 0%;
+  z-index: 1;
 }
 #checkBox {
 }
@@ -149,6 +150,7 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
+  display: none
 }
 
 #formContainer{

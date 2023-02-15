@@ -1,6 +1,6 @@
 let pizzaData;
 let allergensData;
-let gridContainerEl, navBarDiv, rootEl, buttonSearch, filterdiv;
+let gridContainerEl, navBarDiv, rootEl, buttonSearch, filterdiv, cartButton;
 let checkBox, toBeListed;
 let orderFormat = {
   id: 1,
@@ -179,7 +179,6 @@ const completeOrderDetails = () => {
     });
   });
 
-
 };
 
 const addPizzaToOrder = (event) => {
@@ -229,7 +228,7 @@ const formStructure = () => {
 }
 
 const displayForm = () => {
-  document.body.insertAdjacentHTML("beforeend", formStructure)
+  document.body.insertAdjacentHTML("beforeend", formStructure())
 }
 
 const loadEvent = (_) => {

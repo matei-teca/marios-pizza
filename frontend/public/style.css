@@ -139,3 +139,54 @@ label {
   position: absolute;
   top: 80%;
 }
+
+#popupContainer {
+  background-color: rgba(0, 0, 0, 0.675);
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#formContainer{
+  background-color: white;
+  width: 300px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  /* align-items: flex-start; */
+}
+
+.formItem {
+  /* background-color: red; */
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+#title{
+  font-size: 25px;
+  text-align: center;
+}
+
+.input{
+  width: 180px;
+  padding: 10px
+}
+
+#submitBttn{
+  background-color: green;
+  position: absolute;
+  width: 50%;
+  height: 7%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  top: 85%;
+  left: 25%;
+  cursor: pointer;
+}

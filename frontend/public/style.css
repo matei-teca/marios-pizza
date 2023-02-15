@@ -1,0 +1,146 @@
+body {
+    background-color: brown;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img{
+  /* position: fixed; */
+  width: 70%
+
+}
+
+#root {
+    background-color:burlywood;
+    display: flex;
+    justify-content: center;
+    height: 90vh;
+    width: 90vw;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    background-color: orange;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+    height: 160vh;
+    width: 90%;
+    margin-top: 100px;
+  }
+
+.pizzaItemContainer {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    height: 90%;
+    width: 91% !important;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 20px;
+    padding-inline: 20px;
+
+
+    /* padding: 20px;
+    font-size: 30px;
+    text-align: center;
+    height: 470px; */ 
+    /* margin-bottom: 50px; */
+  }
+
+  #orderBttn{
+    background-color: green;
+    position: absolute;
+    width: 30%;
+    height: 7%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    top: 90%;
+    left: 35%
+  }
+
+  #quantityCont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin-top: 30px */
+  }
+
+  #quantityNbr{
+    margin-inline: 5px;
+  }
+  img{
+    /* position: fixed; */
+    width: 100%
+  }
+
+  #quantityLeftBttn, #quantityRightBttn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10px;
+    height:10px;
+    border: 0.3px solid black;
+    border-radius: 100%;
+    padding: 4px;
+    margin-bottom: 5px;
+  }
+
+#navBarDiv{
+  position: absolute;
+width:100vw;
+height: 13vh;
+top:0;
+left: 0
+}
+
+#buttonSearch{
+  font-size: large;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 30%;
+}
+
+#filterdiv{
+  position: absolute;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  width: 10%;
+  top:15%;
+  height: 100%;
+  left: 0%;
+}
+#checkBox{
+
+}
+label{
+  display: block;
+}
+
+  #quantityLeftBttn:hover, #quantityRightBttn:hover{
+    cursor: pointer;
+    background-color: yellow;
+    /* color: white; */
+}
+
+.listCSS{
+  width: 90%;
+  /* background-color: red; */
+}
+
+#pqContainer{
+  /* background-color: red; */
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  position: absolute;
+  top: 80%;
+
+}

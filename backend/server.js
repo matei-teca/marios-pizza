@@ -24,9 +24,9 @@ app.use("/public", express.static(`${__dirname}/../frontend/public`));
 
 app.get("/api/pizza", async function (req, res, next) {
   const fileData = JSON.parse(await fileReaderAsync(filePath));
-  setTimeout(()=>{
+  setTimeout(() => {
     res.send(JSON.stringify(fileData.types));
-  },2000)
+  }, 0000);
 });
 
 app.get("/api/allergens", async (req, res) => {

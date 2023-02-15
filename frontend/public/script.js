@@ -2,6 +2,25 @@ let pizzaData;
 let allergensData;
 let gridContainerEl, navBarDiv, rootEl, buttonSearch, filterdiv;
 let checkBox, toBeListed;
+let orderFormat = {
+  id: 1,
+  pizzas: [],
+  date: {
+    year: 2022,
+    month: 6,
+    day: 7,
+    hour: 18,
+    minute: 47,
+  },
+  customer: {
+    name: "John Doe",
+    email: "jd@example.com",
+    address: {
+      city: "Palermo",
+      street: "Via Appia 6",
+    },
+  },
+};
 
 const createEl = (
   type,
@@ -60,6 +79,7 @@ const displayNavBar = () => {
     label.innerHTML += alergen.name;
   }
   buttonSearch.addEventListener("click", listAlergens);
+
   let applyFilter = createEl("button", checkBox, "id", "applyFilter");
   applyFilter.innerText = "Apply filter";
   applyFilter.addEventListener("click", filterByAlergens);
@@ -111,30 +131,72 @@ const displayPizzaItems = () => {
     <p class="card-text">Allergens: ${allergensToDisplay.join(", ")}</p>
     </div>  
     <ul class="list-group list-group-flush listCSS">
-    <li class="list-group-item">An item</li>
-    <li class="list-group-item">A second item</li>
-    <li class="list-group-item">A third item</li>
+      <li class="list-group-item">An item</li>
+      <li class="list-group-item">A second item</li>
+      <li class="list-group-item">A third item</li>
     </ul>
-    <div class="card-body">
+        <div class="card-body">
 
         </div>
 
         <div id="pqContainer">
-          <div id="price">40RON</div>
+          <div id="price">${pizza.price}RON</div>
           <div id="quantityCont">
-    <div id="quantityLeftBttn">-</div>
-            <div id="quantityNbr">1</div>
-            <div id="quantityRightBttn">+</div>
+            <div class="quantityMinusBttn">-</div>
+            <div class="quantityCounter">1</div>
+            <div class="quantityPlusBttn">+</div>
           </div>
-    </div>
+        </div>
 
-        <div id="orderBttn">Order</div>
+        <div class="orderBttn">Order</div>
     </div>`;
+
     if (toBeListed[i]) {
-      console.log(i);
       gridContainerEl.insertAdjacentHTML("beforeend", cardEl);
     }
   });
+  completeOrderDetails();
+};
+
+const completeOrderDetails = () => {
+  const orderButtons = document.querySelectorAll(".orderBttn");
+  const quantityMinusButtons = document.querySelectorAll(".quantityMinusBttn");
+  const quantityPlusButtons = document.querySelectorAll(".quantityPlusBttn");
+
+  orderButtons.forEach((elem) => {
+    elem.addEventListener("click", (event) => {
+      addPizzaToOrder(event);
+    });
+  });
+
+  quantityMinusButtons.forEach((elem) => {
+    elem.addEventListener("click", (event) => {
+      modifyQuantity(-1, event);
+    });
+  });
+
+  quantityPlusButtons.forEach((elem) => {
+    elem.addEventListener("click", (event) => {
+      modifyQuantity(1, event);
+    });
+  });
+
+
+};
+
+const addPizzaToOrder = (event) => {
+  let parent = event.target.parentElement;
+  let amount = parent.querySelector(".quantityCounter").innerText;
+  let pizzaOrder = {
+    id: parent.id,
+    amount: amount,
+  };
+  orderFormat.pizzas.push(pizzaOrder);
+};
+
+const modifyQuantity = (iterator, event) => {
+  const counter = event.target.parentElement.querySelector(".quantityCounter");
+  counter.innerText = counter.innerText * 1 + iterator;
 };
 
 const loadEvent = (_) => {

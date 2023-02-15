@@ -48,7 +48,7 @@ img {
   /* margin-bottom: 50px; */
 }
 
-#orderBttn {
+.orderBttn {
   background-color: green;
   position: absolute;
   width: 30%;
@@ -59,6 +59,7 @@ img {
   border-radius: 50%;
   top: 90%;
   left: 35%;
+  cursor: pointer
 }
 
 #quantityCont {
@@ -68,12 +69,12 @@ img {
   /* margin-top: 30px */
 }
 
-#quantityNbr {
+.quantityCounter {
   margin-inline: 5px;
 }
 
-#quantityLeftBttn,
-#quantityRightBttn {
+.quantityMinusBttn,
+.quantityPlusBttn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,6 +84,12 @@ img {
   border-radius: 100%;
   padding: 4px;
   margin-bottom: 5px;
+}
+.quantityMinusBttn:hover,
+.quantityPlusBttn:hover {
+  cursor: pointer;
+  background-color: yellow;
+  /* color: white; */
 }
 
 #navBarDiv {
@@ -118,12 +125,6 @@ label {
   display: block;
 }
 
-#quantityLeftBttn:hover,
-#quantityRightBttn:hover {
-  cursor: pointer;
-  background-color: yellow;
-  /* color: white; */
-}
 
 .listCSS {
   width: 90%;

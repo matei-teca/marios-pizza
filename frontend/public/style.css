@@ -142,7 +142,7 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
-  display: none
+  display: flex
 }
 
 #formContainer{
@@ -154,7 +154,10 @@ label {
   position: relative;
   /* align-items: flex-start; */
 }
-
+#orderDetailsContainer{
+  position: absolute;
+  left: 10%
+}
 .formItem {
   /* background-color: red; */
   margin-top: 20px;

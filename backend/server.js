@@ -5,6 +5,7 @@ const fileReaderAsync = require("./fileReader");
 const fileWriterAsync = require("./fileWriter");
 
 const filePath = path.join(`${__dirname}/pizzaTypes.json`);
+const ordersFilePath = path.join(`${__dirname}/orders.json`);
 const app = express();
 
 app.use(express.json());
@@ -31,6 +32,11 @@ app.get("/api/pizza", async function (req, res, next) {
 app.get("/api/allergens", async (req, res) => {
   const fileData = JSON.parse(await fileReaderAsync(filePath));
   res.send(JSON.stringify(fileData.allergens));
+});
+
+app.get("/api/order", async (req, res) => {
+  const fileData = JSON.parse(await fileReaderAsync(ordersFilePath));
+  res.send(JSON.stringify(fileData.orders));
 });
 
 app.post("/api/order", async (req,res) => {

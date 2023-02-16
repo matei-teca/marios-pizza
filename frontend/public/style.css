@@ -178,7 +178,10 @@ label {
   border-radius: 30px;
   /* align-items: flex-start; */
 }
-
+#orderDetailsContainer{
+  position: absolute;
+  left: 10%
+}
 .formItem {
   /* background-color: red; */
   margin-top: 20px;

@@ -378,11 +378,6 @@ const orderDetialsStructure = () => {
 
     </div>
 
-    <!-- Modal footer -->
-    <div class="modal-footer">
-      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-    </div>
-
   </div>
 </div>
 `;
@@ -398,7 +393,9 @@ const getFormDetails = () => {
     data.forEach((value, key) => {
       object[key] = value;
     });
-    if (regex.test(object.name)) {
+    if (orderFormat.pizzas.length === 0) {
+      errorDiv.innerText = "There is no Pizza in Order List";
+    } else if (regex.test(object.name)) {
       errorDiv.innerText = "Invalid character in name";
       console.log("Invalid character in name");
     } else {

@@ -63,7 +63,6 @@ img {
 }
 .orderBttn:hover {
   background-color: rgb(219, 41, 115);
-
 }
 
 #quantityCont {
@@ -160,9 +159,8 @@ label {
   width: 100vw;
   height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
-  display: none;
+  display: flex;
 }
 
 #formContainer {
@@ -175,11 +173,12 @@ label {
   position: relative;
   border: 5px solid rgb(212, 106, 151);
   border-radius: 30px;
+  margin-left: 70%;
   /* align-items: flex-start; */
 }
-#orderDetailsContainer{
+#orderDetailsContainer {
   position: absolute;
-  left: 10%
+  left: 10%;
 }
 .formItem {
   margin-top: 20px;
@@ -216,34 +215,33 @@ label {
   top: 15%;
 }
 
-
-.ingredients{
-  width : 100%;
+.ingredients {
+  width: 100%;
   height: 26%;
   position: absolute;
-  top: 47%
+  top: 47%;
 }
 
-.ingredients > div{
+.ingredients > div {
   width: 100%;
   font-size: 15px;
 }
 
-#ingredientsButton{
-  width: 80%
+#ingredientsButton {
+  width: 80%;
 }
 
-.ingredientsContainer{
+.ingredientsContainer {
   display: flex;
 }
 
-.ingredientsList{
+.ingredientsList {
   max-height: 100%;
   overflow-x: auto;
-  display: none
+  display: none;
 }
 
-#getOrdersDataBttn{
+#getOrdersDataBttn {
   position: fixed;
   top: 89%;
   left: 89%;
@@ -256,11 +254,27 @@ label {
   transition: 0.3s;
 
   /* border: 1px solid white; */
-
 }
 
-#getOrdersDataBttn:hover{
+#getOrdersDataBttn:hover {
   opacity: 1;
   border: 1px solid white;
   transition: 0.3s;
+}
+
+.cancelBtn {
+  margin-left: 40%;
+  font-size: 15px;
+  margin-top: 10%;
+}
+
+.pizzaItem {
+  display: flex;
+}
+.pizzaName {
+  width: 400px !important;
+}
+
+#orderList {
+  font-size: 20px;
 }

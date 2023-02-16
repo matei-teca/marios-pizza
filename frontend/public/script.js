@@ -9,7 +9,8 @@ let gridContainerEl,
   cartImg,
   regex = /[1234567890-=!@#$%^&*()_+;'.\/,\\{}":??><]+/;
 let checkBox, toBeListed;
-let itemsInCart = 0;
+let itemsInCart = 0,
+  subtotal = 0;
 let orderFormat = {
   id: 0,
   pizzas: [],
@@ -117,11 +118,12 @@ const displayNavBar = () => {
 
   cartButton.addEventListener("click", () => {
     popupContainer.style.display = "flex";
+    addPizzaToOrderList();
   });
 
   document.addEventListener("keydown", (event) => {
-    if(event.key === "Escape") popupContainer.style.display = "none";
-  })
+    if (event.key === "Escape") popupContainer.style.display = "none";
+  });
 };
 
 const listAlergens = () => {
@@ -152,6 +154,39 @@ const filterByAlergens = () => {
   toBeListed.fill(true);
 };
 
+const addPizzaToOrderList = () => {
+  const orderList = document.querySelector("#orderList");
+  const subtotalP = document.querySelector("#subtotal");
+  const totalP = document.querySelector("#total");
+
+  orderList.innerHTML = "";
+  orderFormat.pizzas.forEach((pizza) => {
+    const pizzaItem = createEl("div", orderList, "class", "pizzaItem");
+    const name = createEl("p", pizzaItem, "class", "pizzaName");
+    name.innerHTML = `<strong>${pizzaData[pizza.id - 1].name}</strong> <br> ${
+      pizza.amount
+    } x ${
+      pizzaData[pizza.id - 1].price
+    }&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp${
+      pizza.amount * pizzaData[pizza.id - 1].price
+    }RON `;
+    const cancelBtn = createEl(
+      "button",
+      pizzaItem,
+      "class",
+      "btn-close cancelBtn",
+      "id",
+      `${pizza.id}`
+    );
+    cancelBtn.addEventListener("click", (event) => {
+      deletePizza(event);
+    });
+    subtotal += pizza.amount * pizzaData[pizza.id - 1].price;
+  });
+  subtotalP.innerText = `${subtotal} RON`;
+  totalP.innerText = `${subtotal + 70} RON`;
+};
+
 const displayPizzaItems = () => {
   gridContainerEl.innerHTML = "";
   pizzaData.forEach((pizza, i) => {
@@ -171,9 +206,9 @@ const displayPizzaItems = () => {
       <div id="pqContainer">
         <div id="price">${pizza.price}RON</div>
         <div id="quantityCont">
-          <div class="quantityMinusBttn">-</div>
-          <div class="quantityCounter">1</div>
-          <div class="quantityPlusBttn">+</div>
+          <div class="quantityMinusBttn nrpizzas">-</div>
+          <div class="quantityCounter nrpizzas">1</div>
+          <div class="quantityPlusBttn nrpizzas">+</div>
         </div>
       </div>
 
@@ -183,10 +218,28 @@ const displayPizzaItems = () => {
     if (toBeListed[i]) {
       gridContainerEl.insertAdjacentHTML("beforeend", cardEl);
     }
-    displayIngredients(pizza.id)
+    displayIngredients(pizza.id);
   });
   completeOrderDetails();
-  showIngredients()
+  showIngredients();
+};
+
+const deletePizza = (event) => {
+  const subtotalP = document.querySelector("#subtotal");
+  const totalP = document.querySelector("#total");
+  let amount;
+  let content = event.target.parentElement;
+  orderFormat.pizzas = orderFormat.pizzas.filter((pizza, poz) => {
+    if (pizza.id !== event.target.id) {
+      return true;
+    }
+    amount = pizza.amount;
+    return false;
+  });
+  subtotal -= pizzaData[event.target.id * 1 - 1].price * amount;
+  subtotalP.innerText = `${subtotal} RON`;
+  totalP.innerText = `${subtotal + 70} RON`;
+  content.remove();
 };
 
 const completeOrderDetails = () => {
@@ -215,11 +268,12 @@ const completeOrderDetails = () => {
 
 const addPizzaToOrder = (event) => {
   let parent = event.target.parentElement;
-  let amount = parent.querySelector(".quantityCounter");
+  let amount = parent.querySelector(".quantityCounter.nrpizzas");
   let pizzaOrder = {
     id: parent.id,
     amount: amount.innerText * 1,
   };
+  console.log(amount);
   let bool = true;
   for (let pizza of orderFormat.pizzas) {
     if (pizza.id === pizzaOrder.id) {
@@ -283,45 +337,41 @@ const displayOrderDetails = () => {
   popupContainerEl.insertAdjacentHTML("beforeend", orderDetialsStructure());
 };
 
-
 const orderDetialsStructure = () => {
   return `<div class="modal-dialog" id = "orderDetailsContainer">
   <div class="modal-content">
-
-    <!-- Modal Header -->
     <div class="modal-header">
-      <h4 class="modal-title">Modal Heading</h4>
-      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      <h4 class="modal-title">Order List</h4>
     </div>
 
-    <!-- Modal body -->
     <div class="modal-body">
-      Modal body..
       <div class="modal-body text-start text-black p-4">
-      <h5 class="modal-title text-uppercase mb-5" id="exampleModalLabel">Johnatan Miller</h5>
-      <h4 class="mb-5" style="color: #35558a;">Thanks for your order</h4>
+      <div id="orderList">
+      </div>
       <p class="mb-0" style="color: #35558a;">Payment summary</p>
       <hr class="mt-2 mb-4"
-        style="height: 0; background-color: transparent; opacity: .75; border-top: 2px dashed #9e9e9e;">
+        style="height: 0; width: 500px; background-color: transparent; opacity: .75; border-top: 2px dashed #9e9e9e;">
 
       <div class="d-flex justify-content-between">
-        <p class="fw-bold mb-0">Ether Chair(Qty:1)</p>
-        <p class="text-muted mb-0">$1750.00</p>
+        <p class="fw-bold mb-0">Subtotal</p>
+        <p id="subtotal" class="text-muted mb-0">${subtotal} RON</p>
       </div>
 
       <div class="d-flex justify-content-between">
-        <p class="small mb-0">Shipping</p>
-        <p class="small mb-0">$175.00</p>
+        <p class="small mb-0">Delivery</p>
+        <p class="small mb-0">30 RON</p>
       </div>
 
       <div class="d-flex justify-content-between pb-1">
         <p class="small">Tax</p>
-        <p class="small">$200.00</p>
+        <p class="small">40 RON</p>
       </div>
 
       <div class="d-flex justify-content-between">
         <p class="fw-bold">Total</p>
-        <p class="fw-bold" style="color: #35558a;">$2125.00</p>
+        <p id="total" class="fw-bold" style="color: #35558a;">${
+          subtotal + 70
+        } RON</p>
       </div>
 
     </div>
@@ -335,14 +385,14 @@ const orderDetialsStructure = () => {
 
   </div>
 </div>
-`
-}
+`;
+};
 
 const getFormDetails = () => {
   const formular = document.querySelector("#formular");
   const errorDiv = document.querySelector("#errorMessage");
   formular.addEventListener("submit", (event) => {
-    event.preventDefault()
+    event.preventDefault();
     let data = new FormData(formular);
     let object = {};
     data.forEach((value, key) => {
@@ -365,90 +415,108 @@ const getFormDetails = () => {
 };
 
 const addDateToOrder = () => {
-  let date = new Date()
+  let date = new Date();
   orderFormat.date = {
     year: date.getFullYear(),
-    month: date.getMonth()+1,
+    month: date.getMonth() + 1,
     day: date.getDate(),
     hour: date.getHours(),
-    minute: date.getMinutes()
-  }
-}
+    minute: date.getMinutes(),
+  };
+};
 
 const postOrderReq = async () => {
   await fetch("/api/order", {
     method: "POST",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify(orderFormat)
-  })
+    body: JSON.stringify(orderFormat),
+  });
 
   getOrdersRequest();
-}
+};
 
 const showIngredients = () => {
-  const ingredientsButtons = document.querySelectorAll("#ingredientsButton")
-  const minusIngredients = document.querySelectorAll(".minusIngredients")
-  const plusIngredients = document.querySelectorAll(".plusIngredients")
+  const ingredientsButtons = document.querySelectorAll("#ingredientsButton");
+  const minusIngredients = document.querySelectorAll(".minusIngredients");
+  const plusIngredients = document.querySelectorAll(".plusIngredients");
   let counter;
 
-  ingredientsButtons.forEach(elem => {
+  ingredientsButtons.forEach((elem) => {
     elem.addEventListener("click", (event) => {
-      console.log(event.target.nextElementSibling)
+      console.log(event.target.nextElementSibling);
       // displayIngredients(event)
       switch (event.target.value) {
         case "+":
-          event.target.nextElementSibling.style.display = "block"
-          event.target.value = "-"
+          event.target.nextElementSibling.style.display = "block";
+          event.target.value = "-";
           break;
         case "-":
-          event.target.nextElementSibling.style.display = "none"
-          event.target.value = "+"
+          event.target.nextElementSibling.style.display = "none";
+          event.target.value = "+";
           break;
       }
-    })
-  })
+    });
+  });
 
-  minusIngredients.forEach(elem => {
+  minusIngredients.forEach((elem) => {
     elem.addEventListener("click", (event) => {
       counter = event.target.nextElementSibling;
-      if(counter.innerText*1 < 0) counter.innerText = 0
-    })
-  })
-  
-  plusIngredients.forEach(elem => {
+      if (counter.innerText * 1 < 0) counter.innerText = 0;
+    });
+  });
+
+  plusIngredients.forEach((elem) => {
     elem.addEventListener("click", (event) => {
       counter = event.target.previousElementSibling;
-      if(counter.innerText*1 > 2) counter.innerText = 2
-    })
-  })
-
-}
+      if (counter.innerText * 1 > 2) counter.innerText = 2;
+    });
+  });
+};
 
 const displayIngredients = (id) => {
-  let parent = document.getElementById(`ingredients${id}`)
-  let ingredientsList = createEl("div", parent, "class", "ingredientsList")
-  
-  pizzaData[id-1].ingredients.forEach(elem => {
-    let ingredient = createEl("div", ingredientsList)
-    ingredient.innerText = elem
-    
-    let quantitiContainer = createEl("div", ingredient, "class", "ingredientsContainer")
+  let parent = document.getElementById(`ingredients${id}`);
+  let ingredientsList = createEl("div", parent, "class", "ingredientsList");
 
-    let minusButton = createEl("div", quantitiContainer, "class", "quantityMinusBttn minusIngredients")
-    minusButton.innerText = "-"
-    let numberButton = createEl("div", quantitiContainer, "class", "quantityCounter limit")
-    numberButton.innerText = 1
-    let plusButton = createEl("div", quantitiContainer, "class", "quantityPlusBttn plusIngredients")
-    plusButton.innerText = "+"
+  pizzaData[id - 1].ingredients.forEach((elem) => {
+    let ingredient = createEl("div", ingredientsList);
+    ingredient.innerText = elem;
 
-  })
-}
+    let quantitiContainer = createEl(
+      "div",
+      ingredient,
+      "class",
+      "ingredientsContainer"
+    );
+
+    let minusButton = createEl(
+      "div",
+      quantitiContainer,
+      "class",
+      "quantityMinusBttn minusIngredients"
+    );
+    minusButton.innerText = "-";
+    let numberButton = createEl(
+      "div",
+      quantitiContainer,
+      "class",
+      "quantityCounter limit"
+    );
+    numberButton.innerText = 1;
+    let plusButton = createEl(
+      "div",
+      quantitiContainer,
+      "class",
+      "quantityPlusBttn plusIngredients"
+    );
+    plusButton.innerText = "+";
+  });
+};
 
 const getOrdersRequest = async () => {
   try {
     let response = await fetch("/api/order");
     let data = await response.json();
-  
+
     return data;
   } catch (error) {
     if (error instanceof SyntaxError) {
@@ -457,28 +525,26 @@ const getOrdersRequest = async () => {
       console.log("There was an error", error);
     }
   }
-}
+};
 
 const passOrdersResponseData = (data) => {
   let getOrdersDataBttnEl = document.createElement("button");
   getOrdersDataBttnEl.id = "getOrdersDataBttn";
-  getOrdersDataBttnEl.innerText = "Get Orders"
+  getOrdersDataBttnEl.innerText = "Get Orders";
 
   document.body.appendChild(getOrdersDataBttnEl);
 
   getOrdersDataBttnEl.addEventListener("click", async () => {
     let fetchedData = await getOrdersRequest();
     console.log(fetchedData);
-  })
-
-}
+  });
+};
 
 const loadEvent = (_) => {
   getData();
   displayForm();
   getOrdersRequest();
   passOrdersResponseData();
-  
 };
 
 window.addEventListener("load", loadEvent);

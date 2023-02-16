@@ -303,7 +303,7 @@ const formStructure = () => {
           <label for="street">Street:</label>
           <input type="text" id="street" class="input" name="street">
         </div>
-        <div id="errorMessage"></div>
+        <div id="errorMessage" ></div>
         <button id="submitBttn" class="btn btn-success" type="submit" form="formular">Complete Order</button>
       </form>
     </div>
@@ -380,10 +380,16 @@ const getFormDetails = () => {
       object[key] = value;
     });
     if (orderFormat.pizzas.length === 0) {
-      errorDiv.innerText = "There is no Pizza in Order List";
+      errorDiv.innerText = "There is no Pizza in Order List!";
+    } else if (object.name.length < 3) {
+      errorDiv.innerText = "The name is too short!";
     } else if (regex.test(object.name)) {
-      errorDiv.innerText = "Invalid character in name";
+      errorDiv.innerText = "Invalid character in name!";
       console.log("Invalid character in name");
+    } else if (object.email.length < 14) {
+      errorDiv.innerText = "The email is invalid!";
+    } else if (!object.email.includes("@") || !object.email.includes(".com")) {
+      errorDiv.innerText = "The email is invalid!";
     } else {
       orderFormat.customer.name = object.name;
       orderFormat.customer.email = object.email;
@@ -393,6 +399,7 @@ const getFormDetails = () => {
       popupContainer.style.display = "none";
       addDateToOrder();
       postOrderReq();
+      resposePopUp();
     }
   });
 };
@@ -416,6 +423,15 @@ const postOrderReq = async () => {
   });
 
   getOrdersRequest();
+};
+const resposePopUp = () => {
+  let response = createEl("img", document.body, "id", "responsePopUp");
+  response.style.display = "";
+  response.src =
+    "https://img.freepik.com/premium-vector/thank-you-your-order_96807-2324.jpg";
+  setTimeout(() => {
+    response.style.display = "none";
+  }, 4000);
 };
 
 const showIngredients = () => {

@@ -428,3 +428,15 @@ label {
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   margin-top: 0.8%;
 }
+
+#errorMessage {
+  margin-top: 20%;
+  color: red;
+}
+
+#responsePopUp {
+  z-index: 1;
+  position: fixed;
+  width: 100%;
+  height: 110%;
+}

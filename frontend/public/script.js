@@ -375,12 +375,14 @@ const addDateToOrder = () => {
   }
 }
 
-const postOrderReq = () => {
-  fetch("/api/order", {
+const postOrderReq = async () => {
+  await fetch("/api/order", {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify(orderFormat)
   })
+
+  getOrdersRequest();
 }
 
 const showIngredients = () => {
@@ -442,9 +444,41 @@ const displayIngredients = (id) => {
   })
 }
 
+const getOrdersRequest = async () => {
+  try {
+    let response = await fetch("/api/order");
+    let data = await response.json();
+  
+    return data;
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      console.log("There was a SyntaxError", error);
+    } else {
+      console.log("There was an error", error);
+    }
+  }
+}
+
+const passOrdersResponseData = (data) => {
+  let getOrdersDataBttnEl = document.createElement("button");
+  getOrdersDataBttnEl.id = "getOrdersDataBttn";
+  getOrdersDataBttnEl.innerText = "Get Orders"
+
+  document.body.appendChild(getOrdersDataBttnEl);
+
+  getOrdersDataBttnEl.addEventListener("click", async () => {
+    let fetchedData = await getOrdersRequest();
+    console.log(fetchedData);
+  })
+
+}
+
 const loadEvent = (_) => {
   getData();
   displayForm();
+  getOrdersRequest();
+  passOrdersResponseData();
+  
 };
 
 window.addEventListener("load", loadEvent);

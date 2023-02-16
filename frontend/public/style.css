@@ -241,3 +241,25 @@ label {
   overflow-x: auto;
   display: none
 }
+
+#getOrdersDataBttn{
+  position: fixed;
+  top: 89%;
+  left: 89%;
+  width: 10%;
+  height: 10%;
+  border-radius: 100%;
+  background-color: black;
+  color: white;
+  opacity: 0.6;
+  transition: 0.3s;
+
+  /* border: 1px solid white; */
+
+}
+
+#getOrdersDataBttn:hover{
+  opacity: 1;
+  border: 1px solid white;
+  transition: 0.3s;
+}

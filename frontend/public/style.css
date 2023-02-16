@@ -230,6 +230,7 @@ label {
 
 #ingredientsButton {
   width: 80%;
+  margin-left: 10%;
 }
 
 .ingredientsContainer {
@@ -240,6 +241,27 @@ label {
   max-height: 100%;
   overflow-x: auto;
   display: none;
+}
+.ingredientsList::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.ingredientsList::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+/* Handle */
+.ingredientsList::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+.ingredientsList::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  border-radius: 5px;
 }
 
 #getOrdersDataBttn {
@@ -280,24 +302,23 @@ label {
   font-size: 20px;
 }
 
-
-#footerContainer{
+#footerContainer {
   position: absolute;
   top: 190%;
-  height: 60%!important;
+  height: 60% !important;
 }
 
-#footerContainer a{
+#footerContainer a {
   color: white !important;
   text-decoration: none;
-  pointer-events: none
+  pointer-events: none;
 }
 
-#footerContainer label{
+#footerContainer label {
   color: white !important;
 }
 
-#footer{
+#footer {
   position: relative;
   background-color: rgba(52, 33, 41, 1) !important;
   border: 1px solid rgba(129, 127, 127, 0.8) !important;
@@ -305,13 +326,13 @@ label {
   border-radius: 30px;
 }
 
-#footer:hover{
+#footer:hover {
   background-color: rgba(158, 45, 93, 255) !important;
   border: 1px solid rgba(129, 127, 127, 0.8) !important;
   transition: background-color 1s;
 }
 
-#bigFacebookLogoContainer{
+#bigFacebookLogoContainer {
   /* background-color: red; */
   border-radius: 50% !important;
   border: 1px solid black;
@@ -323,33 +344,29 @@ label {
   transition: 1.5s;
 }
 
-#bigFacebookLogoImg{
+#bigFacebookLogoImg {
   border-radius: 50% !important;
   opacity: 0.1;
   transition: 1s;
   transform: scale(1.1);
 }
 
-
-
-#footer:hover #bigFacebookLogoImg{
+#footer:hover #bigFacebookLogoImg {
   opacity: 0.7;
   transition: 3s;
 }
 
-#bigFacebookLogoContainer:hover{
+#bigFacebookLogoContainer:hover {
   border: 1px solid gold;
   transition: 0.5s;
-
 }
 
-#bigFacebookLogoContainer:hover #bigFacebookLogoImg{
+#bigFacebookLogoContainer:hover #bigFacebookLogoImg {
   opacity: 1;
   transition: 1s;
-
 }
 
-#footer:hover #bigFacebookLogoContainer{
+#footer:hover #bigFacebookLogoContainer {
   opacity: 1;
   width: 180px;
   height: 180px;
@@ -369,12 +386,12 @@ label {
   transition: 1s;
 }
 
-#footer:hover #newLogo{
+#footer:hover #newLogo {
   opacity: 1 !important;
   width: 200px !important;
   height: 380px !important;
   top: 42%;
   left: 4%;
   transition: 1s;
-  z-index: 1
+  z-index: 1;
 }

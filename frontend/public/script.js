@@ -118,6 +118,10 @@ const displayNavBar = () => {
   cartButton.addEventListener("click", () => {
     popupContainer.style.display = "flex";
   });
+
+  document.addEventListener("keydown", (event) => {
+    if(event.key === "Escape") popupContainer.style.display = "none";
+  })
 };
 
 const listAlergens = () => {
@@ -161,8 +165,8 @@ const displayPizzaItems = () => {
         <h2>${pizza.name}</h2>
         <p><strong>Allergens</strong>: ${allergensToDisplay.join(", ")}</p>
       </div>
-      <div id="ingredients">
-        <button id="ingredientsButton">Ingredients</button>
+      <div id="ingredients${pizza.id}" class="ingredients">
+        <button id="ingredientsButton" value="+">Ingredients</button>
       </div>
       <div id="pqContainer">
         <div id="price">${pizza.price}RON</div>
@@ -179,6 +183,7 @@ const displayPizzaItems = () => {
     if (toBeListed[i]) {
       gridContainerEl.insertAdjacentHTML("beforeend", cardEl);
     }
+    displayIngredients(pizza.id)
   });
   completeOrderDetails();
   showIngredients()
@@ -380,30 +385,58 @@ const postOrderReq = () => {
 
 const showIngredients = () => {
   const ingredientsButtons = document.querySelectorAll("#ingredientsButton")
+  const minusIngredients = document.querySelectorAll(".minusIngredients")
+  const plusIngredients = document.querySelectorAll(".plusIngredients")
+  let counter;
 
   ingredientsButtons.forEach(elem => {
     elem.addEventListener("click", (event) => {
-      displayIngredients(event)
-      console.log("heo")
+      console.log(event.target.nextElementSibling)
+      // displayIngredients(event)
+      switch (event.target.value) {
+        case "+":
+          event.target.nextElementSibling.style.display = "block"
+          event.target.value = "-"
+          break;
+        case "-":
+          event.target.nextElementSibling.style.display = "none"
+          event.target.value = "+"
+          break;
+      }
     })
   })
+
+  minusIngredients.forEach(elem => {
+    elem.addEventListener("click", (event) => {
+      counter = event.target.nextElementSibling;
+      if(counter.innerText*1 < 0) counter.innerText = 0
+    })
+  })
+  
+  plusIngredients.forEach(elem => {
+    elem.addEventListener("click", (event) => {
+      counter = event.target.previousElementSibling;
+      if(counter.innerText*1 > 2) counter.innerText = 2
+    })
+  })
+
 }
 
-const displayIngredients = (event) => {
-  let parent = event.target.parentElement
-  let id = parent.parentElement.id - 1
-  console.log(parent, id)
-
-  pizzaData[id].ingredients.forEach(elem => {
-    let ingredient = createEl("div", parent)
+const displayIngredients = (id) => {
+  let parent = document.getElementById(`ingredients${id}`)
+  let ingredientsList = createEl("div", parent, "class", "ingredientsList")
+  
+  pizzaData[id-1].ingredients.forEach(elem => {
+    let ingredient = createEl("div", ingredientsList)
     ingredient.innerText = elem
     
     let quantitiContainer = createEl("div", ingredient, "class", "ingredientsContainer")
-    let minusButton = createEl("div", quantitiContainer, "class", "quantityMinusBttn")
+
+    let minusButton = createEl("div", quantitiContainer, "class", "quantityMinusBttn minusIngredients")
     minusButton.innerText = "-"
-    let numberButton = createEl("div", quantitiContainer, "class", "quantityCounter")
+    let numberButton = createEl("div", quantitiContainer, "class", "quantityCounter limit")
     numberButton.innerText = 1
-    let plusButton = createEl("div", quantitiContainer, "class", "quantityPlusBttn")
+    let plusButton = createEl("div", quantitiContainer, "class", "quantityPlusBttn plusIngredients")
     plusButton.innerText = "+"
 
   })

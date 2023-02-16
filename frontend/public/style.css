@@ -190,3 +190,19 @@ label {
   left: 25%;
   cursor: pointer;
 }
+
+#ingredients{
+  width : 100%;
+}
+#ingredients > div{
+  width: 100%;
+  font-size: 15px;
+}
+
+#ingredientsButton{
+  width: 80%
+}
+
+.ingredientsContainer{
+  display: flex;
+}

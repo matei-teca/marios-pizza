@@ -1,17 +1,18 @@
 let pizzaData;
 let allergensData;
-let gridContainerEl, navBarDiv, rootEl, buttonSearch, filterdiv;
+let gridContainerEl,
+  navBarDiv,
+  rootEl,
+  buttonSearch,
+  filterdiv,
+  cartButton,
+  cartImg;
 let checkBox, toBeListed;
+let itemsInCart = 0;
 let orderFormat = {
-  id: 1,
+  id: 0,
   pizzas: [],
-  date: {
-    year: 2022,
-    month: 6,
-    day: 7,
-    hour: 18,
-    minute: 47,
-  },
+  date: {},
   customer: {
     name: "John Doe",
     email: "jd@example.com",
@@ -68,7 +69,14 @@ const displayNavBar = () => {
   rootEl = document.getElementById("root");
   navBarDiv = createEl("div", rootEl, "id", "navBarDiv");
   filterdiv = createEl("div", navBarDiv, "id", "filterdiv");
-  buttonSearch = createEl("button", filterdiv, "id", "buttonSearch");
+  buttonSearch = createEl(
+    "button",
+    filterdiv,
+    "id",
+    "buttonSearch",
+    "class",
+    "btn btn-success"
+  );
   buttonSearch.innerText = "Filter";
   checkBox = createEl("div", filterdiv, "id", "checkBox");
   checkBox.hidden = "hidden";
@@ -80,9 +88,34 @@ const displayNavBar = () => {
   }
   buttonSearch.addEventListener("click", listAlergens);
 
-  let applyFilter = createEl("button", checkBox, "id", "applyFilter");
+  let applyFilter = createEl(
+    "button",
+    checkBox,
+    "id",
+    "applyFilter",
+    "class",
+    "btn btn-success"
+  );
   applyFilter.innerText = "Apply filter";
   applyFilter.addEventListener("click", filterByAlergens);
+
+  cartButton = createEl(
+    "button",
+    navBarDiv,
+    "id",
+    "cartButton",
+    "type",
+    "button",
+    "class",
+    "btn btn-success"
+  );
+  cartButton.innerText = `Cart(${itemsInCart})`;
+
+  let popupContainer = document.querySelector("#popupContainer");
+
+  cartButton.addEventListener("click", () => {
+    popupContainer.style.display = "flex";
+  });
 };
 
 const listAlergens = () => {
@@ -99,7 +132,6 @@ const filterByAlergens = () => {
   pharagraphs.forEach((p, i) => {
     let bool = false;
     for (allergen of checkedBoxes) {
-      console.log(allergen.value);
       if (p.innerText.includes(allergen.value)) {
         bool = true;
         break;
@@ -115,40 +147,31 @@ const filterByAlergens = () => {
 };
 
 const displayPizzaItems = () => {
-  // console.log(toBeListed);
   gridContainerEl.innerHTML = "";
   pizzaData.forEach((pizza, i) => {
     let allergensToDisplay = pizza.allergens.map(
       (elem) => (elem = allergensData[elem - 1].name)
     );
     let cardEl = `
-    <div id="${pizza.id}" class="card pizzaItemContainer">
-    <img src="${
-      pizza.img
-    }" class="card-img-top" alt="..." style = "position: relative">
-    <div class="card-body">
-    <h2 class="card-title">${pizza.name}</h2>
-    <p class="card-text">Allergens: ${allergensToDisplay.join(", ")}</p>
-    </div>  
-    <ul class="list-group list-group-flush listCSS">
-      <li class="list-group-item">An item</li>
-      <li class="list-group-item">A second item</li>
-      <li class="list-group-item">A third item</li>
-    </ul>
-        <div class="card-body">
-
+    <div id="${pizza.id}" class="pizzaItemContainer">
+      <img src="${pizza.img}" alt="..." style = "position: relative">
+      <div class="text-center">
+        <h2>${pizza.name}</h2>
+        <p><strong>Allergens</strong>: ${allergensToDisplay.join(", ")}</p>
+      </div>
+      <div id="ingredients">
+        <button id="ingredientsButton">Ingredients</button>
+      </div>
+      <div id="pqContainer">
+        <div id="price">${pizza.price}RON</div>
+        <div id="quantityCont">
+          <div class="quantityMinusBttn">-</div>
+          <div class="quantityCounter">1</div>
+          <div class="quantityPlusBttn">+</div>
         </div>
+      </div>
 
-        <div id="pqContainer">
-          <div id="price">${pizza.price}RON</div>
-          <div id="quantityCont">
-            <div class="quantityMinusBttn">-</div>
-            <div class="quantityCounter">1</div>
-            <div class="quantityPlusBttn">+</div>
-          </div>
-        </div>
-
-        <div class="orderBttn">Order</div>
+      <div class="orderBttn">Order</div>
     </div>`;
 
     if (toBeListed[i]) {
@@ -156,6 +179,7 @@ const displayPizzaItems = () => {
     }
   });
   completeOrderDetails();
+  showIngredients()
 };
 
 const completeOrderDetails = () => {
@@ -180,18 +204,18 @@ const completeOrderDetails = () => {
       modifyQuantity(1, event);
     });
   });
-
-
 };
 
 const addPizzaToOrder = (event) => {
   let parent = event.target.parentElement;
-  let amount = parent.querySelector(".quantityCounter").innerText;
+  let amount = parent.querySelector(".quantityCounter");
   let pizzaOrder = {
     id: parent.id,
-    amount: amount,
+    amount: amount.innerText,
   };
   orderFormat.pizzas.push(pizzaOrder);
+  cartButton.innerText = `Cart(${++itemsInCart})`;
+  amount.innerText = 1;
 };
 
 const modifyQuantity = (iterator, event) => {
@@ -203,7 +227,7 @@ const formStructure = () => {
   return `
   <div id = "popupContainer">
     <div id = "formContainer">
-      <form>
+      <form id="formular">
         <div id="title" class="formItem">
           Order Details
         </div>
@@ -223,15 +247,89 @@ const formStructure = () => {
           <label for="street">Street:</label>
           <input type="text" id="street" class="input" name="street">
         </div>
-        <button id="submitBttn">Complete Order</button>
+        <button id="submitBttn" class="btn btn-success" type="submit" form="formular">Complete Order</button>
       </form>
     </div>
   </div>
-  `
-}
+  `;
+};
 
 const displayForm = () => {
-  document.body.insertAdjacentHTML("beforeend", formStructure)
+  document.body.insertAdjacentHTML("beforeend", formStructure());
+  getFormDetails();
+};
+
+const getFormDetails = () => {
+  const formular = document.querySelector("#formular");
+  formular.addEventListener("submit", (event) => {
+    event.preventDefault()
+    let data = new FormData(formular);
+    let object = {};
+    data.forEach((value, key) => {
+      object[key] = value;
+    });
+
+    orderFormat.customer.name = object.name;
+    orderFormat.customer.email = object.email;
+    orderFormat.customer.address.city = object.city;
+    orderFormat.customer.address.street = object.street;
+
+    popupContainer.style.display = "none";
+
+    addDateToOrder()
+
+    postOrderReq()
+  });
+};
+
+const addDateToOrder = () => {
+  let date = new Date()
+  orderFormat.date = {
+    year: date.getFullYear(),
+    month: date.getMonth()+1,
+    day: date.getDate(),
+    hour: date.getHours(),
+    minute: date.getMinutes()
+  }
+}
+
+const postOrderReq = () => {
+  fetch("/api/order", {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify(orderFormat)
+  })
+}
+
+const showIngredients = () => {
+  const ingredientsButtons = document.querySelectorAll("#ingredientsButton")
+
+  ingredientsButtons.forEach(elem => {
+    elem.addEventListener("click", (event) => {
+      displayIngredients(event)
+      console.log("heo")
+    })
+  })
+}
+
+const displayIngredients = (event) => {
+  let parent = event.target.parentElement
+  let id = parent.parentElement.id - 1
+  console.log(parent, id)
+
+  pizzaData[id].ingredients.forEach(elem => {
+    let ingredient = createEl("div", parent)
+    ingredient.innerText = elem
+    
+    let quantitiContainer = createEl("div", ingredient, "class", "ingredientsContainer")
+    let minusButton = createEl("div", quantitiContainer, "class", "quantityMinusBttn")
+    minusButton.innerText = "-"
+    let numberButton = createEl("div", quantitiContainer, "class", "quantityCounter")
+    numberButton.innerText = 1
+    let plusButton = createEl("div", quantitiContainer, "class", "quantityPlusBttn")
+    plusButton.innerText = "+"
+
+  })
 }
 
 const loadEvent = (_) => {

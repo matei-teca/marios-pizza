@@ -84,6 +84,7 @@ const displayNavBar = () => {
     let label = createEl("label", checkBox);
     let row = createEl("input", label, "type", "checkbox");
     row.value = alergen.name;
+    row.id = alergen.id;
     label.innerHTML += alergen.name;
   }
   buttonSearch.addEventListener("click", listAlergens);
@@ -128,18 +129,18 @@ const listAlergens = () => {
 
 const filterByAlergens = () => {
   let checkedBoxes = document.querySelectorAll("input:checked");
-  let pharagraphs = document.querySelectorAll("div>p");
-  pharagraphs.forEach((p, i) => {
+  pizzaData.forEach((pizza, i) => {
     let bool = false;
+    console.log(pizza.allergens);
     for (allergen of checkedBoxes) {
-      if (p.innerText.includes(allergen.value)) {
+      console.log(allergen.id);
+      if (pizza.allergens.includes(allergen.id * 1)) {
         bool = true;
         break;
       }
     }
     if (bool) {
       toBeListed[i] = false;
-      // p.parentElement.parentElement.remove();
     }
   });
   displayPizzaItems();
@@ -211,10 +212,19 @@ const addPizzaToOrder = (event) => {
   let amount = parent.querySelector(".quantityCounter");
   let pizzaOrder = {
     id: parent.id,
-    amount: amount.innerText,
+    amount: amount.innerText * 1,
   };
-  orderFormat.pizzas.push(pizzaOrder);
-  cartButton.innerText = `Cart(${++itemsInCart})`;
+  let bool = true;
+  for (let pizza of orderFormat.pizzas) {
+    if (pizza.id === pizzaOrder.id) {
+      pizza.amount += pizzaOrder.amount;
+      bool = false;
+    }
+  }
+  if (bool) {
+    orderFormat.pizzas.push(pizzaOrder);
+    cartButton.innerText = `Cart(${++itemsInCart})`;
+  }
   amount.innerText = 1;
 };
 

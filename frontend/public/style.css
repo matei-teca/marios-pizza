@@ -1,5 +1,5 @@
 body {
-  background-color: brown;
+  background-color: rgb(0, 0, 0) !important;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,10 +8,12 @@ body {
 img {
   /* position: fixed; */
   width: 100%;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 }
 
 #root {
-  background-color: burlywood;
+  /* background-color: burlywood; */
   display: flex;
   justify-content: center;
   height: 90vh;
@@ -20,46 +22,48 @@ img {
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto auto;
-  background-color: orange;
+  background-color: rgba(29, 8, 17, 255);
   align-items: center;
   justify-content: space-around;
   padding: 10px;
-  height: 160vh;
+  height: 180vh;
   width: 90%;
-  margin-top: 100px;
+  margin-top: 70px;
 }
 
 .pizzaItemContainer {
   position: relative;
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.8);
+  background-color: rgba(52, 33, 41, 1);
+  border: 1px solid rgba(129, 127, 127, 0.8);
+  color: aliceblue;
   height: 90%;
   width: 91%;
   display: flex;
   align-items: center;
   flex-direction: column;
-  /* padding-top: 20px;
-    padding-inline: 20px; */
+  border-radius: 30px;
+}
 
-  /* padding: 20px;
-    font-size: 30px;
-    text-align: center;
-    height: 470px; */
-  /* margin-bottom: 50px; */
+.pizzaItemContainer:hover {
+  background-color: rgba(158, 45, 93, 255);
 }
 
 .orderBttn {
-  background-color: green;
+  background-color: rgb(212, 106, 151);
   position: absolute;
-  width: 30%;
+  width: 50%;
   height: 7%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
+  border-radius: 30px;
   top: 90%;
-  left: 35%;
-  cursor: pointer
+  left: 25%;
+  cursor: pointer;
+}
+.orderBttn:hover {
+  background-color: rgb(219, 41, 115);
+
 }
 
 #quantityCont {
@@ -71,6 +75,7 @@ img {
 
 .quantityCounter {
   margin-inline: 5px;
+  font-size: 20px;
 }
 
 .quantityMinusBttn,
@@ -78,11 +83,12 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 10px;
-  height: 10px;
+  font-size: 25px;
+  width: 25px;
+  height: 25px;
   border: 0.3px solid black;
   border-radius: 100%;
-  padding: 4px;
+  padding-bottom: 4px;
   margin-bottom: 5px;
 }
 .quantityMinusBttn:hover,
@@ -94,10 +100,13 @@ img {
 
 #navBarDiv {
   position: absolute;
-  width: 100vw;
-  height: 13vh;
+  width: 100%;
+  height: 8vh;
   top: 0;
   left: 0;
+  background-color: rgba(168, 57, 84, 255);
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
 }
 
 #buttonSearch {
@@ -106,7 +115,8 @@ img {
   align-items: center;
   justify-content: center;
   width: 90%;
-  height: 30%;
+  height: 6%;
+  margin-left: 4%;
 }
 
 #filterdiv {
@@ -114,17 +124,21 @@ img {
   display: inline-block;
   align-items: center;
   justify-content: center;
-  width: 10%;
+  width: 12%;
   top: 15%;
-  height: 100%;
+  height: 900%;
   left: 0%;
-}
-#checkBox {
-}
-label {
-  display: block;
+  color: aliceblue;
 }
 
+#checkbox {
+  position: relative;
+  padding-top: 30%;
+}
+
+label {
+  display: block !important;
+}
 
 .listCSS {
   width: 90%;
@@ -149,36 +163,40 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
+  display: none;
 }
 
-#formContainer{
-  background-color: white;
+#formContainer {
+  background-color: rgb(0, 0, 0);
+  color: aliceblue;
   width: 20%;
-  height: 70%;
+  height: 80%;
   display: flex;
   justify-content: center;
   position: relative;
+  border: 5px solid rgb(212, 106, 151);
+  border-radius: 30px;
   /* align-items: flex-start; */
 }
 
 .formItem {
   /* background-color: red; */
   margin-top: 20px;
-  font-size: 20px;
+  /* font-size: 20px; */
 }
 
-#title{
-  font-size: 25px;
+#title {
+  font-size: 35px;
   text-align: center;
 }
 
-.input{
-  width: 180px;
-  padding: 10px
+.input {
+  width: 100%;
+  padding: 3%;
 }
 
-#submitBttn{
-  background-color: green;
+#submitBttn {
+  background-color: rgb(212, 106, 151);
   position: absolute;
   width: 50%;
   height: 7%;
@@ -186,10 +204,18 @@ label {
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  top: 85%;
+  bottom: 5%;
   left: 25%;
   cursor: pointer;
 }
+
+#cartButton {
+  display: flex;
+  position: absolute;
+  right: 5%;
+  top: 15%;
+}
+
 
 #ingredients{
   width : 100%;

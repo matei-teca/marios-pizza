@@ -71,14 +71,7 @@ const displayNavBar = () => {
   rootEl = document.getElementById("root");
   navBarDiv = createEl("div", rootEl, "id", "navBarDiv");
   filterdiv = createEl("div", navBarDiv, "id", "filterdiv");
-  buttonSearch = createEl(
-    "button",
-    filterdiv,
-    "id",
-    "buttonSearch",
-    "class",
-    "btn btn-success"
-  );
+  buttonSearch = createEl("button", filterdiv, "id", "buttonSearch");
   buttonSearch.innerText = "Filter";
   checkBox = createEl("div", filterdiv, "id", "checkBox");
   checkBox.hidden = "hidden";
@@ -108,9 +101,7 @@ const displayNavBar = () => {
     "id",
     "cartButton",
     "type",
-    "button",
-    "class",
-    "btn btn-success"
+    "button"
   );
   cartButton.innerText = `Cart(${itemsInCart})`;
 

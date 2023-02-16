@@ -261,11 +261,14 @@ label {
 
 #footerContainer{
   position: absolute;
-  top: 150%;
+  top: 190%;
+  height: 60%!important;
 }
 
 #footerContainer a{
   color: white !important;
+  text-decoration: none;
+  pointer-events: none
 }
 
 #footerContainer label{
@@ -273,6 +276,83 @@ label {
 }
 
 #footer{
+  position: relative;
   background-color: rgba(52, 33, 41, 1) !important;
   border: 1px solid rgba(129, 127, 127, 0.8) !important;
+  transition: background-color 1s;
+  border-radius: 30px;
+}
+
+#footer:hover{
+  background-color: rgba(158, 45, 93, 255) !important;
+  border: 1px solid rgba(129, 127, 127, 0.8) !important;
+  transition: background-color 1s;
+}
+
+#bigFacebookLogoContainer{
+  /* background-color: red; */
+  border-radius: 50% !important;
+  border: 1px solid black;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  margin-top: 5%;
+  margin-left: 5%;
+  transition: 1.5s;
+}
+
+#bigFacebookLogoImg{
+  border-radius: 50% !important;
+  opacity: 0.1;
+  transition: 1s;
+  transform: scale(1.1);
+}
+
+
+
+#footer:hover #bigFacebookLogoImg{
+  opacity: 0.7;
+  transition: 3s;
+}
+
+#bigFacebookLogoContainer:hover{
+  border: 1px solid gold;
+  transition: 0.5s;
+
+}
+
+#bigFacebookLogoContainer:hover #bigFacebookLogoImg{
+  opacity: 1;
+  transition: 1s;
+
+}
+
+#footer:hover #bigFacebookLogoContainer{
+  opacity: 1;
+  width: 180px;
+  height: 180px;
+  margin-top: 20%;
+  margin-left: 20%;
+  transition: margin-top margin-left width height 3s;
+}
+
+#newLogo {
+  position: fixed !important;
+  top: 10%;
+  left: 0;
+  opacity: 0.1 !important;
+  width: 180px !important;
+  height: 180px !important;
+  border-radius: 30px;
+  transition: 1s;
+}
+
+#footer:hover #newLogo{
+  opacity: 1 !important;
+  width: 200px !important;
+  height: 380px !important;
+  top: 42%;
+  left: 4%;
+  transition: 1s;
+  z-index: 1
 }

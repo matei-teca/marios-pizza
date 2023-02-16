@@ -65,6 +65,9 @@ img {
 .orderBttn:hover {
   background-color: rgb(219, 41, 115);
 }
+.orderBttn:active {
+  background-color: rgb(8, 235, 38);
+}
 
 #quantityCont {
   display: flex;
@@ -121,6 +124,12 @@ img {
   color: white;
   font-size: 20px;
 }
+#applyFilter {
+  background-color: rgba(52, 33, 41, 1);
+  border-radius: 30px;
+  color: white;
+  font-size: 20px;
+}
 
 #filterdiv {
   position: absolute;
@@ -134,9 +143,11 @@ img {
   color: aliceblue;
 }
 
-#checkbox {
-  position: relative;
-  padding-top: 30%;
+#checkBox {
+  position: absolute;
+  font-size: 20px;
+  max-width: 120px;
+  margin-top: 30px !important;
 }
 
 label {
@@ -256,7 +267,7 @@ label {
   max-height: 100%;
   overflow-x: auto;
   display: none;
-  text-align: center;
+  padding-left: 13%;
 }
 .ingredientsList::-webkit-scrollbar {
   width: 10px;
@@ -410,4 +421,10 @@ label {
   left: 4%;
   transition: 1s;
   z-index: 1;
+}
+
+#title {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  margin-top: 0.8%;
 }

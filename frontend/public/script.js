@@ -73,6 +73,8 @@ const displayNavBar = () => {
   filterdiv = createEl("div", navBarDiv, "id", "filterdiv");
   buttonSearch = createEl("button", filterdiv, "id", "buttonSearch");
   buttonSearch.innerText = "Filter";
+  title = createEl("h2", navBarDiv, "id", "title");
+  title.innerHTML = "Mario's Pizza";
   checkBox = createEl("div", filterdiv, "id", "checkBox");
   checkBox.hidden = "hidden";
   for (let alergen of allergensData) {
@@ -84,14 +86,7 @@ const displayNavBar = () => {
   }
   buttonSearch.addEventListener("click", listAlergens);
 
-  let applyFilter = createEl(
-    "button",
-    checkBox,
-    "id",
-    "applyFilter",
-    "class",
-    "btn btn-success"
-  );
+  let applyFilter = createEl("button", checkBox, "id", "applyFilter");
   applyFilter.innerText = "Apply filter";
   applyFilter.addEventListener("click", filterByAlergens);
 

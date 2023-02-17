@@ -71,15 +71,10 @@ const displayNavBar = () => {
   rootEl = document.getElementById("root");
   navBarDiv = createEl("div", rootEl, "id", "navBarDiv");
   filterdiv = createEl("div", navBarDiv, "id", "filterdiv");
-  buttonSearch = createEl(
-    "button",
-    filterdiv,
-    "id",
-    "buttonSearch",
-    "class",
-    "btn btn-success"
-  );
+  buttonSearch = createEl("button", filterdiv, "id", "buttonSearch");
   buttonSearch.innerText = "Filter";
+  title = createEl("h2", navBarDiv, "id", "title");
+  title.innerHTML = "Mario's Pizza";
   checkBox = createEl("div", filterdiv, "id", "checkBox");
   checkBox.hidden = "hidden";
   for (let alergen of allergensData) {
@@ -91,14 +86,7 @@ const displayNavBar = () => {
   }
   buttonSearch.addEventListener("click", listAlergens);
 
-  let applyFilter = createEl(
-    "button",
-    checkBox,
-    "id",
-    "applyFilter",
-    "class",
-    "btn btn-success"
-  );
+  let applyFilter = createEl("button", checkBox, "id", "applyFilter");
   applyFilter.innerText = "Apply filter";
   applyFilter.addEventListener("click", filterByAlergens);
 
@@ -108,9 +96,7 @@ const displayNavBar = () => {
     "id",
     "cartButton",
     "type",
-    "button",
-    "class",
-    "btn btn-success"
+    "button"
   );
   cartButton.innerText = `Cart(${itemsInCart})`;
 
@@ -318,7 +304,7 @@ const formStructure = () => {
           <label for="street">Street:</label>
           <input type="text" id="street" class="input" name="street">
         </div>
-        <div id="errorMessage"></div>
+        <div id="errorMessage" ></div>
         <button id="submitBttn" class="btn btn-success" type="submit" form="formular">Complete Order</button>
       </form>
     </div>
@@ -395,10 +381,16 @@ const getFormDetails = () => {
       object[key] = value;
     });
     if (orderFormat.pizzas.length === 0) {
-      errorDiv.innerText = "There is no Pizza in Order List";
+      errorDiv.innerText = "There is no Pizza in Order List!";
+    } else if (object.name.length < 3) {
+      errorDiv.innerText = "The name is too short!";
     } else if (regex.test(object.name)) {
-      errorDiv.innerText = "Invalid character in name";
+      errorDiv.innerText = "Invalid character in name!";
       console.log("Invalid character in name");
+    } else if (object.email.length < 14) {
+      errorDiv.innerText = "The email is invalid!";
+    } else if (!object.email.includes("@") || !object.email.includes(".com")) {
+      errorDiv.innerText = "The email is invalid!";
     } else {
       orderFormat.customer.name = object.name;
       orderFormat.customer.email = object.email;
@@ -411,6 +403,7 @@ const getFormDetails = () => {
       popupContainer.style.display = "none";
       addDateToOrder();
       postOrderReq();
+      resposePopUp();
     }
   });
 };
@@ -434,6 +427,15 @@ const postOrderReq = async () => {
   });
 
   getOrdersRequest();
+};
+const resposePopUp = () => {
+  let response = createEl("img", document.body, "id", "responsePopUp");
+  response.style.display = "";
+  response.src =
+    "https://img.freepik.com/premium-vector/thank-you-your-order_96807-2324.jpg";
+  setTimeout(() => {
+    response.style.display = "none";
+  }, 4000);
 };
 
 const showIngredients = () => {

@@ -180,6 +180,7 @@ const addPizzaToOrderList = () => {
     );
     cancelBtn.addEventListener("click", (event) => {
       deletePizza(event);
+      cartButton.innerText = `Cart(${--itemsInCart})`
     });
     subtotal += pizza.amount * pizzaData[pizza.id - 1].price;
   });
@@ -403,6 +404,9 @@ const getFormDetails = () => {
       orderFormat.customer.email = object.email;
       orderFormat.customer.address.city = object.city;
       orderFormat.customer.address.street = object.street;
+
+      itemsInCart = 0
+      cartButton.innerText = `Cart(${itemsInCart})`
 
       popupContainer.style.display = "none";
       addDateToOrder();

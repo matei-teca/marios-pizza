@@ -1,7 +1,18 @@
-Welcome to Mario's Pizza Website!
+# Welcome to Mario's Pizza Website!
 
 This is a study team project at Codecool.
 
-Install: "npm install" (for Bootstrap, Express, Nodemon) <br />
-Usage: "node server.js" (to start the project)
+### Install dependencies
+(for Bootstrap, Express, Nodemon)
+```bash
+cd ./server
+npm install
+```
+
+### Running the code
+```bash
+cd ./server
+node server.js
+```
+
 

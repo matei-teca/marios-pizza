@@ -171,7 +171,7 @@ const addPizzaToOrderList = () => {
     subtotal += pizza.amount * pizzaData[pizza.id - 1].price;
   });
   subtotalP.innerText = `${subtotal} RON`;
-  totalP.innerText = `${subtotal + 70} RON`;
+  totalP.innerText = `${subtotal + 15} RON`;
 };
 
 const displayPizzaItems = () => {
@@ -337,7 +337,7 @@ const orderDetialsStructure = () => {
       </div>
       <p class="mb-0" style="color: #35558a;">Payment summary</p>
       <hr class="mt-2 mb-4"
-        style="height: 0; width: 500px; background-color: transparent; opacity: .75; border-top: 2px dashed #9e9e9e;">
+        style="height: 0; width: 400px; background-color: transparent; opacity: .75; border-top: 2px dashed #9e9e9e;">
 
       <div class="d-flex justify-content-between">
         <p class="fw-bold mb-0">Subtotal</p>
@@ -346,12 +346,12 @@ const orderDetialsStructure = () => {
 
       <div class="d-flex justify-content-between">
         <p class="small mb-0">Delivery</p>
-        <p class="small mb-0">30 RON</p>
+        <p class="small mb-0">10 RON</p>
       </div>
 
       <div class="d-flex justify-content-between pb-1">
         <p class="small">Tax</p>
-        <p class="small">40 RON</p>
+        <p class="small">5 RON</p>
       </div>
 
       <div class="d-flex justify-content-between">
